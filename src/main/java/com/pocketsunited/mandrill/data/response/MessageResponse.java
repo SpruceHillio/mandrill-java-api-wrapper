@@ -15,10 +15,10 @@ public class MessageResponse extends Response {
     }
 
     @JsonProperty
-    private String email;
+    protected String email;
 
     @JsonProperty
-    private Status status;
+    protected Status status;
 
     public String getEmail() {
         return email;

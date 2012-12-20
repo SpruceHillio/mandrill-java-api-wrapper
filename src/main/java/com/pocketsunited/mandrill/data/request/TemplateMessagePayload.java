@@ -14,11 +14,11 @@ public class TemplateMessagePayload extends MessagePayload {
 
     @JsonProperty(
             value = "template_name")
-    private String templateName;
+    protected String templateName;
 
     @JsonProperty(
             value = "template_content")
-    private List<Variable> templateContent = new ArrayList<Variable>();
+    protected List<Variable> templateContent = new ArrayList<Variable>();
 
     protected static abstract class Init<T extends Init<T,U>, U extends TemplateMessagePayload> extends AbstractPayload.Init<T,U> {
 

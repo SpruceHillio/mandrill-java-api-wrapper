@@ -8,7 +8,7 @@ public abstract class AbstractPayload extends AbstractJsonBase {
     public abstract String getPath();
 
     @JsonProperty
-    private String key;
+    protected String key;
 
     protected static abstract class Init<T extends Init<T, U>, U extends AbstractPayload> {
 

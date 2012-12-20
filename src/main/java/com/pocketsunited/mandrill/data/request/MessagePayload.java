@@ -16,18 +16,18 @@ public class MessagePayload extends AbstractPayload {
     public static final class Recipient extends AbstractJsonBase {
 
         @JsonProperty
-        private String email;
+        protected String email;
 
         @JsonProperty
-        private String name;
+        protected String name;
 
-        private Recipient() {}
+        protected Recipient() {}
 
-        private Recipient(String email) {
+        protected Recipient(String email) {
             this.email = email;
         }
 
-        private Recipient(String email, String name) {
+        protected Recipient(String email, String name) {
             this(email);
             this.name = name;
         }
@@ -53,12 +53,12 @@ public class MessagePayload extends AbstractPayload {
     public static final class Variable extends AbstractJsonBase {
 
         @JsonProperty
-        private String name;
+        protected String name;
 
         @JsonProperty
-        private String content;
+        protected String content;
 
-        private Variable() {}
+        protected Variable() {}
 
         protected Variable(String name, String content) {
             this.name = name;
@@ -87,18 +87,18 @@ public class MessagePayload extends AbstractPayload {
 
         @JsonProperty(
                 value = "rcpt")
-        private String recipient;
+        protected String recipient;
 
         @JsonProperty
-        private List<Variable> vars = new ArrayList<Variable>();
+        protected List<Variable> vars = new ArrayList<Variable>();
 
-        private RecipientMergeVars() {}
+        protected RecipientMergeVars() {}
 
-        private RecipientMergeVars(String recipient) {
+        protected RecipientMergeVars(String recipient) {
             this.recipient = recipient;
         }
 
-        private RecipientMergeVars(String recipient, List<Variable> vars) {
+        protected RecipientMergeVars(String recipient, List<Variable> vars) {
             this.recipient = recipient;
             this.vars = vars;
         }
@@ -126,18 +126,18 @@ public class MessagePayload extends AbstractPayload {
 
         @JsonProperty(
                 value = "rcpt")
-        private String recipient;
+        protected String recipient;
 
         @JsonProperty
-        private List<String> values = new ArrayList<String>();
+        protected List<String> values = new ArrayList<String>();
 
-        private RecipientMetadata() {}
+        protected RecipientMetadata() {}
 
-        private RecipientMetadata(String recipient) {
+        protected RecipientMetadata(String recipient) {
             this.recipient = recipient;
         }
 
-        private RecipientMetadata(String recipient, List<String> values) {
+        protected RecipientMetadata(String recipient, List<String> values) {
             this.recipient = recipient;
             this.values = values;
         }
@@ -164,17 +164,17 @@ public class MessagePayload extends AbstractPayload {
     public static final class Attachment extends AbstractJsonBase {
 
         @JsonProperty
-        private String type;
+        protected String type;
 
         @JsonProperty
-        private String name;
+        protected String name;
 
         @JsonProperty
-        private String content;
+        protected String content;
 
-        private Attachment() {}
+        protected Attachment() {}
 
-        private Attachment(String type, String name, String content) {
+        protected Attachment(String type, String name, String content) {
             this.type = type;
             this.name = name;
             this.content = content;
@@ -201,84 +201,84 @@ public class MessagePayload extends AbstractPayload {
     public static final class Message extends AbstractJsonBase {
 
         @JsonProperty
-        private String html;
+        protected String html;
 
         @JsonProperty
-        private String text;
+        protected String text;
 
         @JsonProperty
-        private String subject;
+        protected String subject;
 
         @JsonProperty(
                 value = "from_email")
-        private String fromEmail;
+        protected String fromEmail;
 
         @JsonProperty(
                 value = "from_name")
-        private String fromName;
+        protected String fromName;
 
         @JsonProperty
-        private List<Recipient> to = new ArrayList<Recipient>();
+        protected List<Recipient> to = new ArrayList<Recipient>();
 
         @JsonProperty(
                 value = "track_opens")
-        private boolean trackOpens = Boolean.FALSE;
+        protected boolean trackOpens = Boolean.FALSE;
 
         @JsonProperty(
                 value = "track_clicks")
-        private boolean trackClicks = Boolean.FALSE;
+        protected boolean trackClicks = Boolean.FALSE;
 
         @JsonProperty(
                 value = "auto_text")
-        private boolean autoText = Boolean.FALSE;
+        protected boolean autoText = Boolean.FALSE;
 
         @JsonProperty(
                 value = "url_strip_qs")
-        private boolean urlStripQS = Boolean.FALSE;
+        protected boolean urlStripQS = Boolean.FALSE;
 
         @JsonProperty(
                 value = "preserve_recipients")
-        private boolean preserveRecipients = Boolean.FALSE;
+        protected boolean preserveRecipients = Boolean.FALSE;
 
         @JsonProperty(
                 value = "bcc_address")
-        private String bccAddress;
+        protected String bccAddress;
 
         @JsonProperty(
                 value = "global_merge_vars")
-        private List<Variable> globalMergeVars = new ArrayList<Variable>();
+        protected List<Variable> globalMergeVars = new ArrayList<Variable>();
 
         @JsonProperty(
                 value = "merge_vars")
-        private List<RecipientMergeVars> mergeVars = new ArrayList<RecipientMergeVars>();
+        protected List<RecipientMergeVars> mergeVars = new ArrayList<RecipientMergeVars>();
 
         @JsonProperty
-        private List<String> tags = new ArrayList<String>();
+        protected List<String> tags = new ArrayList<String>();
 
         @JsonProperty(
                 value = "google_analytics_domains")
-        private List<String> googleAnalyticsDomains = new ArrayList<String>();
+        protected List<String> googleAnalyticsDomains = new ArrayList<String>();
 
         @JsonProperty(
                 value = "google_analytics_campaign")
-        private String googleAnalyticsCampaign;
+        protected String googleAnalyticsCampaign;
 
         @JsonProperty
-        private List<String> metadata = new ArrayList<String>();
+        protected List<String> metadata = new ArrayList<String>();
 
         @JsonProperty(
                 value = "recipient_metadata")
-        private List<RecipientMetadata> recipientMetadata = new ArrayList<RecipientMetadata>();
+        protected List<RecipientMetadata> recipientMetadata = new ArrayList<RecipientMetadata>();
 
         @JsonProperty
-        private List<Attachment> attachments = new ArrayList<Attachment>();
+        protected List<Attachment> attachments = new ArrayList<Attachment>();
     }
 
     @JsonProperty
-    private Message message = new Message();
+    protected Message message = new Message();
 
     @JsonProperty
-    private boolean async = Boolean.FALSE;
+    protected boolean async = Boolean.FALSE;
 
     protected static abstract class Init<T extends Init<T,U>, U extends MessagePayload> extends AbstractPayload.Init<T,U> {
 
