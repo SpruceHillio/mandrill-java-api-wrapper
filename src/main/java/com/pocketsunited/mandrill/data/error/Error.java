@@ -18,16 +18,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Error extends java.lang.Error {
 
     @JsonProperty
-    private String status;
+    protected String status;
 
     @JsonProperty
-    private Integer code;
+    protected Integer code;
 
     @JsonProperty
-    private String name;
+    protected String name;
 
     @JsonProperty
-    private String message;
+    protected String message;
 
     public String getStatus() {
         return status;
