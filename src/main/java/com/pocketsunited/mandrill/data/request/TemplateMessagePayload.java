@@ -20,7 +20,7 @@ public class TemplateMessagePayload extends MessagePayload {
             value = "template_content")
     protected List<Variable> templateContent = new ArrayList<Variable>();
 
-    protected static abstract class Init<T extends Init<T,U>, U extends TemplateMessagePayload> extends AbstractPayload.Init<T,U> {
+    protected static abstract class Init<T extends Init<T,U>, U extends TemplateMessagePayload> extends MessagePayload.Init<T,U> {
 
         protected Init(U object) {
             super(object);
