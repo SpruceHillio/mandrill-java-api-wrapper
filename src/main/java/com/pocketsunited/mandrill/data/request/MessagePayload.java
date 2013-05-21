@@ -221,7 +221,11 @@ public class MessagePayload extends AbstractPayload {
         protected List<Recipient> to = new ArrayList<Recipient>();
 
         @JsonProperty(
-                value = "track_opens")
+                 value = "inline_css")
+        protected boolean inlineCss = Boolean.FALSE;
+
+        @JsonProperty(
+              value = "track_opens")
         protected boolean trackOpens = Boolean.FALSE;
 
         @JsonProperty(
@@ -326,6 +330,16 @@ public class MessagePayload extends AbstractPayload {
             return withRecipient(new Recipient(email, name));
         }
 
+        public T withInlineCss(){
+          object.message.inlineCss = Boolean.TRUE;
+          return self();
+        }
+
+        public T withoutInlineCss(){
+          object.message.inlineCss = Boolean.FALSE;
+          return self();
+        }
+        
         public T withTrackOpens() {
             object.message.trackOpens = Boolean.TRUE;
             return self();
