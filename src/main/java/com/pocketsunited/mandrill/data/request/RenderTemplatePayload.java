@@ -1,5 +1,6 @@
 package com.pocketsunited.mandrill.data.request;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pocketsunited.mandrill.data.AbstractJsonBase;
 
@@ -10,6 +11,8 @@ import java.util.List;
  * @author Michael Duergner <michael@pocketsunited.com>
  */
 public class RenderTemplatePayload extends AbstractPayload {
+
+    public static final String PRE_BUILD_TEMPLATE_NAME_NOT_SET = "TEMPLATE_NAME_NOT_SET";
 
     @Override
     public String getPath() {
@@ -55,12 +58,13 @@ public class RenderTemplatePayload extends AbstractPayload {
 
     @JsonProperty(
             value = "template_content")
+    @JsonInclude(
+            value = JsonInclude.Include.NON_NULL)
     protected List<Variable> templateContent = new ArrayList<Variable>();
 
     @JsonProperty(
             value = "merge_vars")
     protected List<Variable> mergeVars = new ArrayList<Variable>();
-
 
     protected static abstract class Init<T extends Init<T,U>, U extends RenderTemplatePayload> extends AbstractPayload.Init<T,U> {
 
@@ -87,6 +91,14 @@ public class RenderTemplatePayload extends AbstractPayload {
                 object.mergeVars.add(variable);
             }
             return self();
+        }
+
+        @Override
+        protected void preBuild() {
+            super.preBuild();
+            if (null == object.templateName || object.templateName.isEmpty()) {
+                addPreBuildError(PRE_BUILD_TEMPLATE_NAME_NOT_SET,"'template_name' must be set and may not be empty!");
+            }
         }
     }
 

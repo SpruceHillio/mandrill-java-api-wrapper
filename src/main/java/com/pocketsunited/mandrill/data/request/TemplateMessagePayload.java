@@ -1,11 +1,14 @@
 package com.pocketsunited.mandrill.data.request;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TemplateMessagePayload extends MessagePayload {
+
+    public static final String PRE_BUILD_TEMPLATE_NAME_NOT_SET = "TEMPLATE_NAME_NOT_SET";
 
     @Override
     public String getPath() {
@@ -18,6 +21,8 @@ public class TemplateMessagePayload extends MessagePayload {
 
     @JsonProperty(
             value = "template_content")
+    @JsonInclude(
+            value = JsonInclude.Include.NON_NULL)
     protected List<Variable> templateContent = new ArrayList<Variable>();
 
     protected static abstract class Init<T extends Init<T,U>, U extends TemplateMessagePayload> extends MessagePayload.Init<T,U> {
@@ -37,6 +42,14 @@ public class TemplateMessagePayload extends MessagePayload {
                 object.templateContent.add(variable);
             }
             return self();
+        }
+
+        @Override
+        protected void preBuild() {
+            super.preBuild();
+            if (null == object.templateName || object.templateName.isEmpty()) {
+                addPreBuildError(PRE_BUILD_TEMPLATE_NAME_NOT_SET,"'template_name' must be set and may not be empty!");
+            }
         }
     }
 
