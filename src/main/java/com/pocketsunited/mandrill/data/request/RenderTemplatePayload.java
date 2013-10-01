@@ -12,6 +12,8 @@ import java.util.List;
  */
 public class RenderTemplatePayload extends AbstractPayload {
 
+    public static final String PRE_BUILD_TEMPLATE_NAME_NOT_SET = "TEMPLATE_NAME_NOT_SET";
+
     @Override
     public String getPath() {
         return "/templates/render.json";
@@ -64,7 +66,6 @@ public class RenderTemplatePayload extends AbstractPayload {
             value = "merge_vars")
     protected List<Variable> mergeVars = new ArrayList<Variable>();
 
-
     protected static abstract class Init<T extends Init<T,U>, U extends RenderTemplatePayload> extends AbstractPayload.Init<T,U> {
 
         protected Init(U object) {
@@ -90,6 +91,14 @@ public class RenderTemplatePayload extends AbstractPayload {
                 object.mergeVars.add(variable);
             }
             return self();
+        }
+
+        @Override
+        protected void preBuild() {
+            super.preBuild();
+            if (null == object.templateName || object.templateName.isEmpty()) {
+                addPreBuildError(PRE_BUILD_TEMPLATE_NAME_NOT_SET,"'template_name' must be set and may not be empty!");
+            }
         }
     }
 

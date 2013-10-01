@@ -8,6 +8,8 @@ import java.util.List;
 
 public class TemplateMessagePayload extends MessagePayload {
 
+    public static final String PRE_BUILD_TEMPLATE_NAME_NOT_SET = "TEMPLATE_NAME_NOT_SET";
+
     @Override
     public String getPath() {
         return "/messages/send-template.json";
@@ -40,6 +42,14 @@ public class TemplateMessagePayload extends MessagePayload {
                 object.templateContent.add(variable);
             }
             return self();
+        }
+
+        @Override
+        protected void preBuild() {
+            super.preBuild();
+            if (null == object.templateName || object.templateName.isEmpty()) {
+                addPreBuildError(PRE_BUILD_TEMPLATE_NAME_NOT_SET,"'template_name' must be set and may not be empty!");
+            }
         }
     }
 
