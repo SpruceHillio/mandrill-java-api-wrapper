@@ -8,7 +8,7 @@
     <name>Mandrill Java API Wrapper</name>
     <groupId>com.pocketsunited</groupId>
     <artifactId>mandrill-java-api-wrapper</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1</version>
 
     <build>
         <plugins>
