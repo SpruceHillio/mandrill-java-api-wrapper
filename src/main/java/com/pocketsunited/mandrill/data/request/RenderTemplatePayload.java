@@ -13,7 +13,7 @@ public class RenderTemplatePayload extends AbstractPayload {
 
     @Override
     public String getPath() {
-        return "/template/render.json";
+        return "/templates/render.json";
     }
 
     public static final class Variable extends AbstractJsonBase {
