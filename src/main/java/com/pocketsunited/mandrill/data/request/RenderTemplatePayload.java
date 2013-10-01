@@ -1,5 +1,6 @@
 package com.pocketsunited.mandrill.data.request;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pocketsunited.mandrill.data.AbstractJsonBase;
 
@@ -55,6 +56,8 @@ public class RenderTemplatePayload extends AbstractPayload {
 
     @JsonProperty(
             value = "template_content")
+    @JsonInclude(
+            value = JsonInclude.Include.NON_NULL)
     protected List<Variable> templateContent = new ArrayList<Variable>();
 
     @JsonProperty(

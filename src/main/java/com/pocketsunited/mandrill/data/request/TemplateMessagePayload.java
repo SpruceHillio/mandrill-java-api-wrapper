@@ -1,5 +1,6 @@
 package com.pocketsunited.mandrill.data.request;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ public class TemplateMessagePayload extends MessagePayload {
 
     @JsonProperty(
             value = "template_content")
+    @JsonInclude(
+            value = JsonInclude.Include.NON_NULL)
     protected List<Variable> templateContent = new ArrayList<Variable>();
 
     protected static abstract class Init<T extends Init<T,U>, U extends TemplateMessagePayload> extends MessagePayload.Init<T,U> {
