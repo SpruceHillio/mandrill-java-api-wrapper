@@ -18,7 +18,7 @@ public abstract class AbstractPayload extends AbstractJsonBase {
     @JsonProperty
     protected String key;
 
-    protected static abstract class Init<T extends Init<T, U>, U extends AbstractPayload> {
+    public static abstract class Init<T extends Init<T, U>, U extends AbstractPayload> {
 
         private Map<String,String> preBuildErrors = new HashMap<String, String>();
 
@@ -57,6 +57,10 @@ public abstract class AbstractPayload extends AbstractJsonBase {
         public T withKey(String key) {
             object.key = key;
             return self();
+        }
+
+        public boolean hasKey() {
+            return null != object.key && !object.key.isEmpty();
         }
 
         public U build() throws PreBuildError {

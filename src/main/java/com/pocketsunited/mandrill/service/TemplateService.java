@@ -2,6 +2,7 @@ package com.pocketsunited.mandrill.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.pocketsunited.mandrill.data.error.MessageError;
+import com.pocketsunited.mandrill.data.error.PreBuildError;
 import com.pocketsunited.mandrill.data.error.RenderTemplateError;
 import com.pocketsunited.mandrill.data.request.RenderTemplatePayload;
 import com.pocketsunited.mandrill.data.response.RenderTemplateResponse;
@@ -27,5 +28,11 @@ public class TemplateService extends AbstractService implements ITemplateService
             logger.error("Got IOException while rendering template!");
             throw e;
         }
+    }
+
+    @Override
+    public String render(RenderTemplatePayload.Builder payloadBuilder) throws PreBuildError, RenderTemplateError,IOException {
+        integrateDefaultValues(payloadBuilder);
+        return render(payloadBuilder.build());
     }
 }
