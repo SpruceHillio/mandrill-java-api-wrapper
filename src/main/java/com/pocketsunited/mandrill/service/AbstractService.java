@@ -3,11 +3,9 @@ package com.pocketsunited.mandrill.service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pocketsunited.mandrill.data.request.AbstractPayload;
-import com.pocketsunited.mandrill.data.response.Response;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.AbstractHttpEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.PoolingClientConnectionManager;
@@ -16,29 +14,52 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
+/**
+ * @author Michael Duergner <michael@pocketsunited.com>
+ */
 public abstract class AbstractService {
 
-    protected final Logger logger = LoggerFactory.getLogger(getClass());
+    final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private String baseUrl = "https://mandrillapp.com/api/1.0";
+    String baseUrl = "https://mandrillapp.com/api/1.0";
 
     HttpClient httpClient;
 
     ObjectMapper objectMapper;
 
+    String key;
+
+    /**
+     *
+     * @param baseUrl
+     */
     public void setBaseUrl(String baseUrl) {
         this.baseUrl = baseUrl;
     }
 
+    /**
+     *
+     * @param httpClient
+     */
     public void setHttpClient(HttpClient httpClient) {
         this.httpClient = httpClient;
     }
 
+    /**
+     *
+     * @param objectMapper
+     */
     public void setObjectMapper(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
+    }
+
+    /**
+     *
+     * @param key
+     */
+    public void setKey(String key) {
+        this.key = key;
     }
 
     @PostConstruct
@@ -52,6 +73,12 @@ public abstract class AbstractService {
         }
         if (null == objectMapper) {
             objectMapper = new ObjectMapper();
+        }
+    }
+
+    <T extends AbstractPayload.Init<T, U>,U extends AbstractPayload> void integrateDefaultValues(AbstractPayload.Init<T, U> payloadBuilder) {
+        if (!payloadBuilder.hasKey() && null != key && !key.isEmpty()) {
+            payloadBuilder.withKey(key);
         }
     }
 

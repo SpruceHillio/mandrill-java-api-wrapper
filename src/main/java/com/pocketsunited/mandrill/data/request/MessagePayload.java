@@ -284,7 +284,7 @@ public class MessagePayload extends AbstractPayload {
     @JsonProperty
     protected boolean async = Boolean.FALSE;
 
-    protected static abstract class Init<T extends Init<T,U>, U extends MessagePayload> extends AbstractPayload.Init<T,U> {
+    public static abstract class Init<T extends Init<T,U>, U extends MessagePayload> extends AbstractPayload.Init<T,U> {
 
         protected Init(U object) {
             super(object);
@@ -307,12 +307,20 @@ public class MessagePayload extends AbstractPayload {
 
         public T withFromEmail(String fromEmail) {
             object.message.fromEmail = fromEmail;
-            return self();
+        return self();
+        }
+
+        public boolean hasFromEmail() {
+            return null != object.message.fromEmail && !object.message.fromEmail.isEmpty();
         }
 
         public T withFromName(String fromName) {
             object.message.fromName = fromName;
             return self();
+        }
+
+        public boolean hasFromName() {
+            return null != object.message.fromName && !object.message.fromName.isEmpty();
         }
 
         private T withRecipient(Recipient recipient) {
@@ -355,7 +363,7 @@ public class MessagePayload extends AbstractPayload {
             return self();
         }
 
-        public T withoutrackClicks() {
+        public T withoutTrackClicks() {
             object.message.trackClicks = Boolean.FALSE;
             return self();
         }
