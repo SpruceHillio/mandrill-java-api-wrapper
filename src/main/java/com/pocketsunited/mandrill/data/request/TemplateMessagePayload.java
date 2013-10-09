@@ -25,7 +25,7 @@ public class TemplateMessagePayload extends MessagePayload {
             value = JsonInclude.Include.NON_NULL)
     protected List<Variable> templateContent = new ArrayList<Variable>();
 
-    protected static abstract class Init<T extends Init<T,U>, U extends TemplateMessagePayload> extends MessagePayload.Init<T,U> {
+    protected static abstract class Init<T extends Init<T,U>, U extends TemplateMessagePayload> extends MessagePayload.Init<T,U> implements IWithTemplateNamePayloadBuilder<T>, IWithTemplateContentPayloadBuilder<T> {
 
         protected Init(U object) {
             super(object);

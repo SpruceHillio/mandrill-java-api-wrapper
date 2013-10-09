@@ -66,7 +66,7 @@ public class RenderTemplatePayload extends AbstractPayload {
             value = "merge_vars")
     protected List<Variable> mergeVars = new ArrayList<Variable>();
 
-    protected static abstract class Init<T extends Init<T,U>, U extends RenderTemplatePayload> extends AbstractPayload.Init<T,U> {
+    protected static abstract class Init<T extends Init<T,U>, U extends RenderTemplatePayload> extends AbstractPayload.Init<T,U> implements IWithTemplateNamePayloadBuilder<T>, IWithTemplateContentPayloadBuilder<T>, IWithMergeVarPayloadBuilder<T> {
 
         protected Init(U object) {
             super(object);

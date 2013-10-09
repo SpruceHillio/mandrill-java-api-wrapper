@@ -284,7 +284,7 @@ public class MessagePayload extends AbstractPayload {
     @JsonProperty
     protected boolean async = Boolean.FALSE;
 
-    public static abstract class Init<T extends Init<T,U>, U extends MessagePayload> extends AbstractPayload.Init<T,U> {
+    public static abstract class Init<T extends Init<T,U>, U extends MessagePayload> extends AbstractPayload.Init<T,U> implements IWithMergeVarRecipientAwarePayloadBuilder<T> {
 
         protected Init(U object) {
             super(object);
@@ -409,6 +409,10 @@ public class MessagePayload extends AbstractPayload {
                 object.message.globalMergeVars.add(var);
             }
             return self();
+        }
+
+        public T withMergeVar(String name, String content) {
+            return withGlobalMergeVar(name,content);
         }
 
         public T withMergeVar(String recipient, String name, String content) {
