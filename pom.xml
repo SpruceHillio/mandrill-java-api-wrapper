@@ -8,9 +8,23 @@
     <name>Mandrill Java API Wrapper</name>
     <groupId>com.pocketsunited</groupId>
     <artifactId>mandrill-java-api-wrapper</artifactId>
-    <version>0.5.0</version>
+    <version>0.6.0</version>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${version.maven-compiler}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${version.maven-source}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -19,6 +33,19 @@
                     <source>1.6</source>
                     <target>1.6</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -55,6 +82,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <version.maven-compiler>3.1</version.maven-compiler>
+        <version.maven-source>2.2.1</version.maven-source>
         <version.jackson>2.0.2</version.jackson>
         <version.spock>0.6-groovy-1.8</version.spock>
         <version.httpclient>4.2.1</version.httpclient>
