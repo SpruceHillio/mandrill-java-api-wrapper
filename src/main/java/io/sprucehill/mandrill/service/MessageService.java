@@ -1,18 +1,34 @@
-package com.pocketsunited.mandrill.service;
+/*
+Copyright 2013-2014 SpruceHill.io GmbH
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+package io.sprucehill.mandrill.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.pocketsunited.mandrill.data.error.MessageError;
-import com.pocketsunited.mandrill.data.error.PreBuildError;
-import com.pocketsunited.mandrill.data.error.TemplateMessageError;
-import com.pocketsunited.mandrill.data.request.MessagePayload;
-import com.pocketsunited.mandrill.data.request.TemplateMessagePayload;
-import com.pocketsunited.mandrill.data.response.MessageResponse;
+import io.sprucehill.mandrill.data.error.MessageError;
+import io.sprucehill.mandrill.data.error.PreBuildError;
+import io.sprucehill.mandrill.data.error.TemplateMessageError;
+import io.sprucehill.mandrill.data.request.MessagePayload;
+import io.sprucehill.mandrill.data.request.TemplateMessagePayload;
+import io.sprucehill.mandrill.data.response.MessageResponse;
 
 import java.io.IOException;
 import java.util.List;
 
 /**
- * @author Michael Duergner <michael@pocketsunited.com>
+ * @author Michael Duergner <michael@sprucehill.io>
  */
 public class MessageService extends AbstractService implements IMessageService {
 
