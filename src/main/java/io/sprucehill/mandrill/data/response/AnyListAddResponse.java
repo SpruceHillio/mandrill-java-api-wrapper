@@ -22,45 +22,29 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * @author Michael Duergner <michael@sprucehill.io>
  */
-public class MessageResponse extends Response {
+public class AnyListAddResponse extends Response {
 
     @JsonProperty
     protected String email;
     @JsonProperty
-    protected Status status;
-    @JsonProperty("reject_reason")
-    protected String rejectReason;
+    protected boolean added;
 
     public String getEmail() {
         return email;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public String getRejectReason() {
-        return rejectReason;
+    public boolean isAdded() {
+        return added;
     }
 
     @Override
     public String toString() {
         return new StringBuilder("MessageResponse [email: ").
                 append(email).
-                append(", status: ").
-                append(status).
-                append(", reject_reason: ").
-                append(rejectReason).
+                append(", added: ").
+                append(added).
                 append("]").
                 toString();
     }
 
-    public static enum Status {
-        SENT, QUEUED, REJECTED, INVALID;
-
-        @JsonCreator
-        public static Status parse(String value) {
-            return valueOf(value.toUpperCase());
-        }
-    }
 }

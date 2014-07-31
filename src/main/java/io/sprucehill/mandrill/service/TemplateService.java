@@ -16,14 +16,13 @@ limitations under the License.
 
 package io.sprucehill.mandrill.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
+import java.io.IOException;
+
 import io.sprucehill.mandrill.data.error.MessageError;
 import io.sprucehill.mandrill.data.error.PreBuildError;
 import io.sprucehill.mandrill.data.error.RenderTemplateError;
 import io.sprucehill.mandrill.data.request.RenderTemplatePayload;
 import io.sprucehill.mandrill.data.response.RenderTemplateResponse;
-
-import java.io.IOException;
 
 /**
  * @author Michael Duergner <michael@sprucehill.io>
@@ -31,23 +30,26 @@ import java.io.IOException;
 public class TemplateService extends AbstractService implements ITemplateService {
 
     @Override
-    public String render(RenderTemplatePayload payload) throws RenderTemplateError, IOException {
+    public String render(final RenderTemplatePayload payload)
+            throws RenderTemplateError, IOException {
         try {
-            RenderTemplateResponse renderTemplateResponse = send(payload,new TypeReference<RenderTemplateResponse>() {},RenderTemplateError.class);
+            final RenderTemplateResponse renderTemplateResponse =
+                    send(payload, RenderTemplateResponse.class, RenderTemplateError.class);
             return renderTemplateResponse.getHtml();
-        }
-        catch (MessageError e) {
-            logger.warn("Got RenderTemplateError with code {}, name {} and message {} when rendering template!",new Object[] {e.getCode().toString(),e.getName(),e.getMessage()});
+        } catch (final MessageError e) {
+            LOGGER.warn("Got RenderTemplateError with code {}, name {} and message {} when " +
+                    "rendering template!", new Object[]{e.getCode().toString(), e.getName(),
+                    e.getMessage()});
             throw e;
-        }
-        catch (IOException e) {
-            logger.error("Got IOException while rendering template!");
+        } catch (final IOException e) {
+            LOGGER.error("Got IOException while rendering template!");
             throw e;
         }
     }
 
     @Override
-    public String render(RenderTemplatePayload.Builder payloadBuilder) throws PreBuildError, RenderTemplateError,IOException {
+    public String render(final RenderTemplatePayload.Builder payloadBuilder)
+            throws PreBuildError, RenderTemplateError, IOException {
         integrateDefaultValues(payloadBuilder);
         return render(payloadBuilder.build());
     }

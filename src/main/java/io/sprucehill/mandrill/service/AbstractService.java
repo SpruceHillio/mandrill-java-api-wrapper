@@ -16,65 +16,50 @@ limitations under the License.
 
 package io.sprucehill.mandrill.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.sprucehill.mandrill.data.request.AbstractPayload;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.PoolingClientConnectionManager;
+import java.io.IOException;
+
+import javax.annotation.PostConstruct;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.Response;
+
+import org.glassfish.jersey.client.JerseyClient;
+import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
-import java.io.IOException;
+import io.sprucehill.mandrill.data.request.AbstractPayload;
 
 /**
  * @author Michael Duergner <michael@sprucehill.io>
  */
 public abstract class AbstractService {
 
-    final Logger logger = LoggerFactory.getLogger(getClass());
+    protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
-    String baseUrl = "https://mandrillapp.com/api/1.0";
+    protected String baseUrl = "https://mandrillapp.com/api/1.0";
 
-    HttpClient httpClient;
+    protected JerseyClient jerseyClient;
 
-    ObjectMapper objectMapper;
-
-    String key;
+    protected String key;
 
     /**
-     *
      * @param baseUrl
      */
-    public void setBaseUrl(String baseUrl) {
+    public void setBaseUrl(final String baseUrl) {
         this.baseUrl = baseUrl;
     }
 
     /**
-     *
-     * @param httpClient
+     * @param jerseyClient
      */
-    public void setHttpClient(HttpClient httpClient) {
-        this.httpClient = httpClient;
+    public void setClient(final JerseyClient jerseyClient) {
+        this.jerseyClient = jerseyClient;
     }
 
     /**
-     *
-     * @param objectMapper
-     */
-    public void setObjectMapper(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-    }
-
-    /**
-     *
      * @param key
      */
-    public void setKey(String key) {
+    public void setKey(final String key) {
         this.key = key;
     }
 
@@ -84,40 +69,32 @@ public abstract class AbstractService {
     }
 
     void onPostConstruct() {
-        if (null == httpClient) {
-            httpClient = new DefaultHttpClient(new PoolingClientConnectionManager());
-        }
-        if (null == objectMapper) {
-            objectMapper = new ObjectMapper();
+        if (null == jerseyClient) {
+            jerseyClient = JerseyClientBuilder.createClient();
         }
     }
 
-    <T extends AbstractPayload.Init<T, U>,U extends AbstractPayload> void integrateDefaultValues(AbstractPayload.Init<T, U> payloadBuilder) {
+    <T extends AbstractPayload.Init<T, U>, U extends AbstractPayload> void integrateDefaultValues(AbstractPayload.Init<T, U> payloadBuilder) {
         if (!payloadBuilder.hasKey() && null != key && !key.isEmpty()) {
             payloadBuilder.withKey(key);
         }
     }
 
-    <T, E extends Error> T send(final AbstractPayload payload, TypeReference<T> responseClass, Class<E> errorClass) throws E, IOException {
-        try {
-            HttpPost request = new HttpPost(baseUrl+payload.getPath());
-            String body = objectMapper.writeValueAsString(payload);
-            logger.info(body);
-            request.setEntity(new StringEntity(body,"UTF-8"));
-            HttpResponse response = httpClient.execute(request);
-            if (200 == response.getStatusLine().getStatusCode()) {
-                T result = objectMapper.readValue(response.getEntity().getContent(),responseClass);
-                return result;
-            }
-            else {
-                E error = objectMapper.readValue(response.getEntity().getContent(),errorClass);
-                logger.debug("Got error {} while calling {}.", error.toString(), payload.getPath());
-                throw error;
-            }
-        }
-        catch (IOException e) {
-            logger.debug("Got {} while calling {}.",e.getClass().getSimpleName(),payload.getPath());
-            throw  e;
+    <T, E extends Error> T send(final AbstractPayload payload, final Class<T> responseClass,
+                                final Class<E> errorClass) throws E, IOException {
+        final Response response = jerseyClient
+                .target(baseUrl)
+                .path(payload.getPath())
+                .request()
+                .post(Entity.json(payload));
+
+        if (200 == response.getStatus()) {
+            final T result = response.readEntity(responseClass);
+            return result;
+        } else {
+            final E error = response.readEntity(errorClass);
+            LOGGER.debug("Got error {} while calling {}.", error.toString(), payload.getPath());
+            throw error;
         }
     }
 }
