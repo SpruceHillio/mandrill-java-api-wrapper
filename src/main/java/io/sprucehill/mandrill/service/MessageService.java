@@ -19,13 +19,10 @@ package io.sprucehill.mandrill.service;
 import java.io.IOException;
 import java.util.List;
 
-import com.sun.xml.internal.ws.resources.SenderMessages;
-
 import io.sprucehill.mandrill.data.error.MessageError;
 import io.sprucehill.mandrill.data.error.PreBuildError;
 import io.sprucehill.mandrill.data.error.TemplateMessageError;
 import io.sprucehill.mandrill.data.request.MessageSendPayload;
-import io.sprucehill.mandrill.data.request.RejectsAddPayload;
 import io.sprucehill.mandrill.data.request.TemplateMessageSendPayload;
 import io.sprucehill.mandrill.data.response.MessageResponse;
 
