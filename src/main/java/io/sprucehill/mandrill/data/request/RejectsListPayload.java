@@ -28,7 +28,7 @@ public class RejectsListPayload extends AbstractRejectsPayload {
 
     @Override
     public String getPath() {
-        return "/rejects/add.json";
+        return "/rejects/list.json";
     }
 
     public static abstract class Init<T extends Init<T, U>, U extends RejectsListPayload>
