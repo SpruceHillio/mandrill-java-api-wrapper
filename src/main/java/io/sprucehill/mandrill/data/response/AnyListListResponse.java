@@ -16,51 +16,46 @@ limitations under the License.
 
 package io.sprucehill.mandrill.data.response;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author Michael Duergner <michael@sprucehill.io>
  */
-public class MessageResponse extends Response {
+public class AnyListListResponse extends Response {
 
     @JsonProperty
     protected String email;
     @JsonProperty
-    protected Status status;
-    @JsonProperty("reject_reason")
-    protected String rejectReason;
+    protected String detail;
+    @JsonProperty("created_at")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT")
+    protected Date createdAt;
 
     public String getEmail() {
         return email;
     }
 
-    public Status getStatus() {
-        return status;
+    public String getDetail() {
+        return detail;
     }
 
-    public String getRejectReason() {
-        return rejectReason;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
     @Override
     public String toString() {
         return new StringBuilder("MessageResponse [email: ").
                 append(email).
-                append(", status: ").
-                append(status).
-                append(", reject_reason: ").
-                append(rejectReason).
+                append(", detail: ").
+                append(detail).
+                append(", created_at: ").
+                append(createdAt).
                 append("]").
                 toString();
     }
 
-    public static enum Status {
-        SENT, QUEUED, REJECTED, INVALID;
-
-        @JsonCreator
-        public static Status parse(String value) {
-            return valueOf(value.toUpperCase());
-        }
-    }
 }

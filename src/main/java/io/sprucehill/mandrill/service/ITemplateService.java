@@ -16,11 +16,11 @@ limitations under the License.
 
 package io.sprucehill.mandrill.service;
 
+import java.io.IOException;
+
 import io.sprucehill.mandrill.data.error.PreBuildError;
 import io.sprucehill.mandrill.data.error.RenderTemplateError;
 import io.sprucehill.mandrill.data.request.RenderTemplatePayload;
-
-import java.io.IOException;
 
 /**
  * @author Michael Duergner <michael@sprucehill.io>
@@ -28,21 +28,20 @@ import java.io.IOException;
 public interface ITemplateService {
 
     /**
-     *
      * @param payload
      * @return
      * @throws RenderTemplateError
      * @throws IOException
      */
-    String render(RenderTemplatePayload payload) throws RenderTemplateError,IOException;
+    String render(final RenderTemplatePayload payload) throws RenderTemplateError, IOException;
 
     /**
-     *
      * @param payloadBuilder
      * @return
      * @throws PreBuildError
      * @throws RenderTemplateError
      * @throws IOException
      */
-    String render(RenderTemplatePayload.Builder payloadBuilder) throws PreBuildError, RenderTemplateError,IOException;
+    String render(final RenderTemplatePayload.Builder payloadBuilder)
+            throws PreBuildError, RenderTemplateError, IOException;
 }

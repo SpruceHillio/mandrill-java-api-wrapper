@@ -24,28 +24,27 @@ import java.util.Map;
  */
 public class PreBuildError extends Exception {
 
-    private Map<String,String> preBuildErrors;
+    private Map<String, String> preBuildErrors;
 
-    public PreBuildError(Map<String,String> preBuildErrors) {
+    public PreBuildError(final Map<String, String> preBuildErrors) {
         super(concatPreBuildErrors(preBuildErrors));
         this.preBuildErrors = Collections.unmodifiableMap(preBuildErrors);
     }
 
-    public Map<String,String> getPreBuildErrors() {
-        return preBuildErrors;
-    }
-
-    private static String concatPreBuildErrors(Map<String,String> preBuildErrors) {
+    private static String concatPreBuildErrors(final Map<String, String> preBuildErrors) {
         StringBuilder builder = null;
-        for (Map.Entry<String,String> preBuildError : preBuildErrors.entrySet()) {
+        for (final Map.Entry<String, String> preBuildError : preBuildErrors.entrySet()) {
             if (null == builder) {
                 builder = new StringBuilder();
-            }
-            else {
+            } else {
                 builder.append(", ");
             }
             builder.append(preBuildError.getKey());
         }
         return null == builder ? "" : builder.toString();
+    }
+
+    public Map<String, String> getPreBuildErrors() {
+        return preBuildErrors;
     }
 }

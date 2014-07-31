@@ -16,15 +16,16 @@ limitations under the License.
 
 package io.sprucehill.mandrill.service;
 
+import java.io.IOException;
+import java.util.List;
+
 import io.sprucehill.mandrill.data.error.MessageError;
 import io.sprucehill.mandrill.data.error.PreBuildError;
 import io.sprucehill.mandrill.data.error.TemplateMessageError;
-import io.sprucehill.mandrill.data.request.MessagePayload;
-import io.sprucehill.mandrill.data.request.TemplateMessagePayload;
+import io.sprucehill.mandrill.data.request.MessageSendPayload;
+import io.sprucehill.mandrill.data.request.RejectsAddPayload;
+import io.sprucehill.mandrill.data.request.TemplateMessageSendPayload;
 import io.sprucehill.mandrill.data.response.MessageResponse;
-
-import java.io.IOException;
-import java.util.List;
 
 /**
  * @author Michael Duergner <michael@sprucehill.io>
@@ -32,40 +33,40 @@ import java.util.List;
 public interface IMessageService {
 
     /**
-     *
      * @param payload
      * @return
      * @throws MessageError
      * @throws IOException
      */
-    List<MessageResponse> sendMessage(MessagePayload payload) throws MessageError, IOException;
+    List<MessageResponse> sendMessage(final MessageSendPayload payload)
+            throws MessageError, IOException;
 
     /**
-     *
      * @param payloadBuilder
      * @return
      * @throws PreBuildError
      * @throws MessageError
      * @throws IOException
      */
-    List<MessageResponse> sendMessage(MessagePayload.Builder payloadBuilder) throws PreBuildError, MessageError, IOException;
+    List<MessageResponse> sendMessage(final MessageSendPayload.Builder payloadBuilder)
+            throws PreBuildError, MessageError, IOException;
 
     /**
-     *
      * @param payload
      * @return
      * @throws TemplateMessageError
      * @throws IOException
      */
-    List<MessageResponse> sendTemplateMessage(TemplateMessagePayload payload) throws TemplateMessageError, IOException;
+    List<MessageResponse> sendTemplateMessage(final TemplateMessageSendPayload payload)
+            throws TemplateMessageError, IOException;
 
     /**
-     *
      * @param payloadBuilder
      * @return
      * @throws PreBuildError
      * @throws TemplateMessageError
      * @throws IOException
      */
-    List<MessageResponse> sendTemplateMessage(TemplateMessagePayload.Builder payloadBuilder) throws PreBuildError, TemplateMessageError, IOException;
+    List<MessageResponse> sendTemplateMessage(final TemplateMessageSendPayload.Builder payloadBuilder)
+            throws PreBuildError, TemplateMessageError, IOException;
 }

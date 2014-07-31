@@ -25,7 +25,7 @@ import java.util.Set;
  */
 public class RenderTemplateError extends Error {
 
-    protected static abstract class Init<T extends Init<T,U>, U extends RenderTemplateError> extends Error.Init<T,U> {
+    protected static abstract class Init<T extends Init<T, U>, U extends RenderTemplateError> extends Error.Init<T, U> {
 
         private static final Set<String> names;
 
@@ -38,12 +38,12 @@ public class RenderTemplateError extends Error {
             names = Collections.unmodifiableSet(namesTmp);
         }
 
-        protected Init(U object) {
+        protected Init(final U object) {
             super(object);
         }
 
         @Override
-        public T withName(String name) {
+        public T withName(final String name) {
             if (names.contains(name)) {
                 return super.withName(name);
             }
@@ -51,7 +51,7 @@ public class RenderTemplateError extends Error {
         }
     }
 
-    public static class Builder extends Init<Builder,RenderTemplateError> {
+    public static class Builder extends Init<Builder, RenderTemplateError> {
 
         public Builder() {
             super(new RenderTemplateError());
