@@ -21,26 +21,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jersey.repackaged.com.google.common.base.Objects;
 
 /**
- *
+ * @author Michael Duergner <michael@sprucehill.io>
  */
-public class AnyListDeleteResponse extends Response {
+public class TemplateRenderResponse extends Response {
 
     @JsonProperty
-    protected String email;
-    @JsonProperty
-    protected boolean deleted;
+    private String html;
 
-    public String getEmail() {
-        return email;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
+    public String getHtml() {
+        return html;
     }
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("email", email).add("deleted", deleted).toString();
+        return Objects.toStringHelper(this).add("html", html).toString();
     }
-
 }

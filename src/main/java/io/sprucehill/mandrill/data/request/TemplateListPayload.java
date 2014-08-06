@@ -14,33 +14,26 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package io.sprucehill.mandrill.data.response;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import jersey.repackaged.com.google.common.base.Objects;
+package io.sprucehill.mandrill.data.request;
 
 /**
  *
  */
-public class AnyListDeleteResponse extends Response {
-
-    @JsonProperty
-    protected String email;
-    @JsonProperty
-    protected boolean deleted;
-
-    public String getEmail() {
-        return email;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
+public class TemplateListPayload extends LabelPayload {
     @Override
-    public String toString() {
-        return Objects.toStringHelper(this).add("email", email).add("deleted", deleted).toString();
+    public String getPath() {
+        return "/templates/list.json";
     }
 
+    public static class Builder extends Init<Builder, TemplateListPayload> {
+
+        public Builder() {
+            super(new TemplateListPayload());
+        }
+
+        @Override
+        protected Builder self() {
+            return this;
+        }
+    }
 }

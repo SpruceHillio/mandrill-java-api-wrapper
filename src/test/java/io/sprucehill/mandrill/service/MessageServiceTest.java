@@ -36,8 +36,6 @@ public class MessageServiceTest extends AbstractTest {
         messageService.setFromEmail(FROM_EMAIL);
         messageService.setFromName(FROM_NAME);
 
-
-
         final List<MessageResponse> response = messageService.sendMessage(
                 new MessageSendPayload.Builder().withTo(EMAIL).withSubject("Mandrill Test")
                         .withText("This is an automatic test for emails send using Mandrill"));
@@ -52,12 +50,11 @@ public class MessageServiceTest extends AbstractTest {
         final MessageService messageService = new MessageService();
 
         final List<MessageResponse> response = messageService.sendTemplateMessage(
-                new TemplateMessageSendPayload.Builder().withTo(EMAIL)
+                new MessageSendTemplatePayload.Builder().withTo(EMAIL)
                         .withTemplateName(TEMPLATE));
 
         Assert.assertFalse(response.isEmpty());
         //Assert.assertEquals(EMAIL, response.getEmail());
         //Assert.assertEquals(MessageResponse.Status.SENT, response.getStatus());
     }
-
 }

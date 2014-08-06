@@ -16,32 +16,19 @@ limitations under the License.
 
 package io.sprucehill.mandrill.data.request;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.sprucehill.mandrill.data.AbstractJsonBase;
 
 /**
- * @author Michael Duergner <michael@sprucehill.io>
+ *
  */
-public class RenderTemplatePayload extends AbstractPayload {
+public abstract class TemplatePayload extends AbstractPayload {
 
     public static final String PRE_BUILD_TEMPLATE_NAME_NOT_SET = "TEMPLATE_NAME_NOT_SET";
-    @JsonProperty(value = "template_name")
-    protected String templateName;
-    @JsonProperty(value = "template_content")
-    @JsonInclude(value = JsonInclude.Include.NON_NULL)
-    protected List<Variable> templateContent = new ArrayList<Variable>();
-    @JsonProperty(value = "merge_vars")
-    protected List<Variable> mergeVars = new ArrayList<Variable>();
 
-    @Override
-    public String getPath() {
-        return "/templates/render.json";
-    }
+    @JsonProperty(value = "name")
+    protected String name;
 
     public static final class Variable extends AbstractJsonBase {
 
@@ -77,51 +64,23 @@ public class RenderTemplatePayload extends AbstractPayload {
         }
     }
 
-    protected static abstract class Init<T extends Init<T, U>, U extends RenderTemplatePayload> extends AbstractPayload.Init<T, U> implements IWithTemplateNamePayloadBuilder<T>, IWithTemplateContentPayloadBuilder<T>, IWithMergeVarPayloadBuilder<T> {
+    protected static abstract class Init<T extends Init<T, U>, U extends TemplatePayload> extends AbstractPayload.Init<T, U> implements IWithNamePayloadBuilder<T> {
 
         protected Init(U object) {
             super(object);
         }
 
-        public T withTemplateName(String templateName) {
-            object.templateName = templateName;
-            return self();
-        }
-
-        public T withTemplateContent(String name, String content) {
-            Variable variable = new Variable(name, content);
-            if (!object.templateContent.contains(variable)) {
-                object.templateContent.add(variable);
-            }
-            return self();
-        }
-
-        public T withMergeVar(String name, String content) {
-            Variable variable = new Variable(name, content);
-            if (!object.mergeVars.contains(variable)) {
-                object.mergeVars.add(variable);
-            }
+        public T withName(String name) {
+            object.name = name;
             return self();
         }
 
         @Override
         protected void preBuild() {
             super.preBuild();
-            if (null == object.templateName || object.templateName.isEmpty()) {
+            if (null == object.name || object.name.isEmpty()) {
                 addPreBuildError(PRE_BUILD_TEMPLATE_NAME_NOT_SET, "'template_name' must be set and may not be empty!");
             }
-        }
-    }
-
-    public static class Builder extends Init<Builder, RenderTemplatePayload> {
-
-        public Builder() {
-            super(new RenderTemplatePayload());
-        }
-
-        @Override
-        protected Builder self() {
-            return this;
         }
     }
 }

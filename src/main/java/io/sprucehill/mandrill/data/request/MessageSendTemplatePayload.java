@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * @author Michael Duergner <michael@sprucehill.io>
  */
-public class TemplateMessageSendPayload extends MessageSendPayload {
+public class MessageSendTemplatePayload extends MessageSendPayload {
 
     public static final String PRE_BUILD_TEMPLATE_NAME_NOT_SET = "TEMPLATE_NAME_NOT_SET";
     @JsonProperty(
@@ -42,7 +42,7 @@ public class TemplateMessageSendPayload extends MessageSendPayload {
         return "/messages/send-template.json";
     }
 
-    protected static abstract class Init<T extends Init<T, U>, U extends TemplateMessageSendPayload>
+    protected static abstract class Init<T extends Init<T, U>, U extends MessageSendTemplatePayload>
             extends MessageSendPayload.Init<T, U> implements IWithTemplateNamePayloadBuilder<T>,
             IWithTemplateContentPayloadBuilder<T> {
 
@@ -73,10 +73,10 @@ public class TemplateMessageSendPayload extends MessageSendPayload {
         }
     }
 
-    public static class Builder extends Init<Builder, TemplateMessageSendPayload> {
+    public static class Builder extends Init<Builder, MessageSendTemplatePayload> {
 
         public Builder() {
-            super(new TemplateMessageSendPayload());
+            super(new MessageSendTemplatePayload());
         }
 
         @Override

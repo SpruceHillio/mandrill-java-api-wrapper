@@ -17,10 +17,12 @@ limitations under the License.
 package io.sprucehill.mandrill.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import io.sprucehill.mandrill.data.error.PreBuildError;
 import io.sprucehill.mandrill.data.error.RenderTemplateError;
-import io.sprucehill.mandrill.data.request.RenderTemplatePayload;
+import io.sprucehill.mandrill.data.request.*;
+import io.sprucehill.mandrill.data.response.TemplateResponse;
 
 /**
  * @author Michael Duergner <michael@sprucehill.io>
@@ -33,7 +35,7 @@ public interface ITemplateService {
      * @throws RenderTemplateError
      * @throws IOException
      */
-    String render(final RenderTemplatePayload payload) throws RenderTemplateError, IOException;
+    String render(final TemplateRenderPayload payload) throws RenderTemplateError, IOException;
 
     /**
      * @param payloadBuilder
@@ -42,6 +44,116 @@ public interface ITemplateService {
      * @throws RenderTemplateError
      * @throws IOException
      */
-    String render(final RenderTemplatePayload.Builder payloadBuilder)
+    String render(final TemplateRenderPayload.Builder payloadBuilder)
             throws PreBuildError, RenderTemplateError, IOException;
+
+    /**
+     * @param payload
+     * @return
+     * @throws RenderTemplateError
+     * @throws IOException
+     */
+    TemplateResponse add(final TemplateAddPayload payload) throws RenderTemplateError, IOException;
+
+    /**
+     * @param payloadBuilder
+     * @return
+     * @throws PreBuildError
+     * @throws RenderTemplateError
+     * @throws IOException
+     */
+    TemplateResponse add(final TemplateAddPayload.Builder payloadBuilder)
+            throws PreBuildError, RenderTemplateError, IOException;
+
+    /**
+     * @param payload
+     * @return
+     * @throws RenderTemplateError
+     * @throws IOException
+     */
+    TemplateResponse update(final TemplateUpdatePayload payload) throws RenderTemplateError, IOException;
+
+    /**
+     * @param payloadBuilder
+     * @return
+     * @throws PreBuildError
+     * @throws RenderTemplateError
+     * @throws IOException
+     */
+    TemplateResponse update(final TemplateUpdatePayload.Builder payloadBuilder)
+            throws PreBuildError, RenderTemplateError, IOException;
+
+    /**
+     * @param payload
+     * @return
+     * @throws RenderTemplateError
+     * @throws IOException
+     */
+    TemplateResponse publish(final TemplatePublishPayload payload) throws RenderTemplateError, IOException;
+
+    /**
+     * @param payloadBuilder
+     * @return
+     * @throws PreBuildError
+     * @throws RenderTemplateError
+     * @throws IOException
+     */
+    TemplateResponse publish(final TemplatePublishPayload.Builder payloadBuilder)
+            throws PreBuildError, RenderTemplateError, IOException;
+
+    /**
+     * @param payload
+     * @return
+     * @throws RenderTemplateError
+     * @throws IOException
+     */
+    TemplateResponse delete(final TemplateDeletePayload payload) throws RenderTemplateError, IOException;
+
+    /**
+     * @param payloadBuilder
+     * @return
+     * @throws PreBuildError
+     * @throws RenderTemplateError
+     * @throws IOException
+     */
+    TemplateResponse delete(final TemplateDeletePayload.Builder payloadBuilder)
+            throws PreBuildError, RenderTemplateError, IOException;
+
+    /**
+     * @param payload
+     * @return
+     * @throws RenderTemplateError
+     * @throws IOException
+     */
+    TemplateResponse info(final TemplateInfoPayload payload) throws RenderTemplateError, IOException;
+
+    /**
+     * @param payloadBuilder
+     * @return
+     * @throws PreBuildError
+     * @throws RenderTemplateError
+     * @throws IOException
+     */
+    TemplateResponse info(final TemplateInfoPayload.Builder payloadBuilder)
+            throws PreBuildError, RenderTemplateError, IOException;
+
+    /**
+     * @param payload
+     * @return
+     * @throws RenderTemplateError
+     * @throws IOException
+     */
+    List<TemplateResponse> list(final TemplateListPayload payload) throws RenderTemplateError, IOException;
+
+    /**
+     * @param payloadBuilder
+     * @return
+     * @throws PreBuildError
+     * @throws RenderTemplateError
+     * @throws IOException
+     */
+    List<TemplateResponse> list(final TemplateListPayload.Builder payloadBuilder)
+            throws PreBuildError, RenderTemplateError, IOException;
+
+
 }
