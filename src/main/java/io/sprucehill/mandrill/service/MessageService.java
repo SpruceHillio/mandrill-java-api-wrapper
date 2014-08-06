@@ -74,7 +74,8 @@ public class MessageService extends AbstractService implements IMessageService {
                     send(payload, List.class, MessageError.class);
             return messageResponses;
         } catch (MessageError e) {
-            LOGGER.warn("Got MessageError with code {}, name {} and message {} when sending message!", new Object[]{e.getCode().toString(), e.getName(), e.getMessage()});
+            LOGGER.warn("Got MessageError with code {}, name {} and message {} when sending message!",
+                    e.getCode().toString(), e.getName(), e.getMessage());
             throw e;
         } catch (IOException e) {
             LOGGER.error("Got IOException while sending message!");

@@ -12,7 +12,15 @@ public abstract class AbstractTest {
 
     @Before
     public void init() {
+        // 1. try
         apikey = System.getenv("mandrill.apikey");
+
+        // 2. try
+        if (apikey == null) {
+            apikey = System.getenv("mandrill.apikey");
+        }
+
+        // failed?
         if (apikey == null) {
             throw new IllegalArgumentException("No apikey in environment");
         }
