@@ -17,12 +17,13 @@ limitations under the License.
 package io.sprucehill.mandrill.data.response;
 
 import java.util.Date;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @author Michael Duergner <michael@sprucehill.io>
+ *
  */
 public class AnyListListResponse extends Response {
 
@@ -48,14 +49,8 @@ public class AnyListListResponse extends Response {
 
     @Override
     public String toString() {
-        return new StringBuilder("MessageResponse [email: ").
-                append(email).
-                append(", detail: ").
-                append(detail).
-                append(", created_at: ").
-                append(createdAt).
-                append("]").
-                toString();
+        return jersey.repackaged.com.google.common.base.Objects.toStringHelper(this)
+                .add("email", email).add("detail", detail).add("createdAt", createdAt).toString();
     }
 
 }

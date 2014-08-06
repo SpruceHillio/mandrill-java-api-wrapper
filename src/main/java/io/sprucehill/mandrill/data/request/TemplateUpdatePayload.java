@@ -14,27 +14,27 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package io.sprucehill.mandrill.data.response;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+package io.sprucehill.mandrill.data.request;
 
 /**
- * @author Michael Duergner <michael@sprucehill.io>
+ *
  */
-public class RenderTemplateResponse extends Response {
-
-    @JsonProperty
-    private String html;
-
-    public String getHtml() {
-        return html;
-    }
-
+public class TemplateUpdatePayload extends TemplateAddOrUpdatePayload {
     @Override
-    public String toString() {
-        return new StringBuilder("RenderTemplateResponse [html: ").
-                append(html).
-                append("]").
-                toString();
+    public String getPath() {
+        return "/templates/update.json";
     }
+
+    public static class Builder extends Init<Builder, TemplateUpdatePayload> {
+
+        public Builder() {
+            super(new TemplateUpdatePayload());
+        }
+
+        @Override
+        protected Builder self() {
+            return this;
+        }
+    }
+
 }

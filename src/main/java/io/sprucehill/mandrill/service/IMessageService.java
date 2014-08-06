@@ -23,7 +23,7 @@ import io.sprucehill.mandrill.data.error.MessageError;
 import io.sprucehill.mandrill.data.error.PreBuildError;
 import io.sprucehill.mandrill.data.error.TemplateMessageError;
 import io.sprucehill.mandrill.data.request.MessageSendPayload;
-import io.sprucehill.mandrill.data.request.TemplateMessageSendPayload;
+import io.sprucehill.mandrill.data.request.MessageSendTemplatePayload;
 import io.sprucehill.mandrill.data.response.MessageResponse;
 
 /**
@@ -56,7 +56,7 @@ public interface IMessageService {
      * @throws TemplateMessageError
      * @throws IOException
      */
-    List<MessageResponse> sendTemplateMessage(final TemplateMessageSendPayload payload)
+    List<MessageResponse> sendTemplateMessage(final MessageSendTemplatePayload payload)
             throws TemplateMessageError, IOException;
 
     /**
@@ -66,6 +66,6 @@ public interface IMessageService {
      * @throws TemplateMessageError
      * @throws IOException
      */
-    List<MessageResponse> sendTemplateMessage(final TemplateMessageSendPayload.Builder payloadBuilder)
+    List<MessageResponse> sendTemplateMessage(final MessageSendTemplatePayload.Builder payloadBuilder)
             throws PreBuildError, TemplateMessageError, IOException;
 }

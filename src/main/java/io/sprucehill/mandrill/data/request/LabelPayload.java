@@ -14,33 +14,28 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package io.sprucehill.mandrill.data.response;
+package io.sprucehill.mandrill.data.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jersey.repackaged.com.google.common.base.Objects;
+import io.sprucehill.mandrill.data.AbstractJsonBase;
 
 /**
  *
  */
-public class AnyListDeleteResponse extends Response {
+public abstract class LabelPayload extends AbstractPayload {
+    @JsonProperty(value = "label")
+    protected String label;
 
-    @JsonProperty
-    protected String email;
-    @JsonProperty
-    protected boolean deleted;
+    protected static abstract class Init<T extends Init<T, U>, U extends LabelPayload> extends AbstractPayload.Init<T, U> implements IWithLabelPayloadBuilder<T> {
 
-    public String getEmail() {
-        return email;
+        protected Init(U object) {
+            super(object);
+        }
+
+        public T withLabel(String label) {
+            object.label = label;
+            return self();
+        }
     }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    @Override
-    public String toString() {
-        return Objects.toStringHelper(this).add("email", email).add("deleted", deleted).toString();
-    }
-
 }

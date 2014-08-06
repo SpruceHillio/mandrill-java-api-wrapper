@@ -23,7 +23,7 @@ import io.sprucehill.mandrill.data.error.MessageError;
 import io.sprucehill.mandrill.data.error.PreBuildError;
 import io.sprucehill.mandrill.data.error.TemplateMessageError;
 import io.sprucehill.mandrill.data.request.MessageSendPayload;
-import io.sprucehill.mandrill.data.request.TemplateMessageSendPayload;
+import io.sprucehill.mandrill.data.request.MessageSendTemplatePayload;
 import io.sprucehill.mandrill.data.response.MessageResponse;
 
 /**
@@ -67,7 +67,7 @@ public class MessageService extends AbstractService implements IMessageService {
     }
 
     @Override
-    public List<MessageResponse> sendTemplateMessage(final TemplateMessageSendPayload payload)
+    public List<MessageResponse> sendTemplateMessage(final MessageSendTemplatePayload payload)
             throws TemplateMessageError, IOException {
         try {
             final List<MessageResponse> messageResponses =
@@ -84,7 +84,7 @@ public class MessageService extends AbstractService implements IMessageService {
     }
 
     public List<MessageResponse> sendTemplateMessage(
-            final TemplateMessageSendPayload.Builder payloadBuilder)
+            final MessageSendTemplatePayload.Builder payloadBuilder)
             throws PreBuildError, TemplateMessageError, IOException {
         integrateDefaultValues(payloadBuilder);
         return sendTemplateMessage(payloadBuilder.build());

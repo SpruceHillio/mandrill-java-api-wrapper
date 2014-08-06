@@ -14,33 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package io.sprucehill.mandrill.data.response;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import jersey.repackaged.com.google.common.base.Objects;
+package io.sprucehill.mandrill.data.request;
 
 /**
  *
+ * @param <T>
  */
-public class AnyListAddResponse extends Response {
-
-    @JsonProperty
-    protected String email;
-    @JsonProperty
-    protected boolean added;
-
-    public String getEmail() {
-        return email;
-    }
-
-    public boolean isAdded() {
-        return added;
-    }
-
-    @Override
-    public String toString() {
-        return Objects.toStringHelper(this).add("email", email).add("added", added).toString();
-    }
+public interface IWithFromNamePayloadBuilder<T>  {
+    T withFromName(final String name);
 
 }

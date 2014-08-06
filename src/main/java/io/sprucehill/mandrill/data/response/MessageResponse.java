@@ -19,6 +19,8 @@ package io.sprucehill.mandrill.data.response;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jersey.repackaged.com.google.common.base.Objects;
+
 /**
  * @author Michael Duergner <michael@sprucehill.io>
  */
@@ -45,14 +47,8 @@ public class MessageResponse extends Response {
 
     @Override
     public String toString() {
-        return new StringBuilder("MessageResponse [email: ").
-                append(email).
-                append(", status: ").
-                append(status).
-                append(", reject_reason: ").
-                append(rejectReason).
-                append("]").
-                toString();
+        return Objects.toStringHelper(this).add("email", email).add("status", status)
+                .add("rejectReaseon", rejectReason).toString();
     }
 
     public static enum Status {
