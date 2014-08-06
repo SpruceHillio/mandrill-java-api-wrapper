@@ -17,7 +17,7 @@ public abstract class AbstractTest {
 
         // 2. try
         if (apikey == null) {
-            apikey = System.getenv("mandrill.apikey");
+            apikey = System.getenv("mandrill_apikey");
         }
 
         // failed?
