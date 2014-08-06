@@ -36,31 +36,58 @@ public abstract class AbstractService {
 
     protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
-    protected String baseUrl = "https://mandrillapp.com/api/1.0";
+    private static String baseUrl = "https://mandrillapp.com/api/1.0";
 
-    protected JerseyClient jerseyClient;
+    private static JerseyClient jerseyClient;
 
-    protected String key;
+    private static String key;
 
     /**
      * @param baseUrl
      */
-    public void setBaseUrl(final String baseUrl) {
-        this.baseUrl = baseUrl;
+    public static void setBaseUrl(final String baseUrl) {
+        AbstractService.baseUrl = baseUrl;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static String getBaseUrl() {
+        return baseUrl;
     }
 
     /**
      * @param jerseyClient
      */
-    public void setClient(final JerseyClient jerseyClient) {
-        this.jerseyClient = jerseyClient;
+    public static void setClient(final JerseyClient jerseyClient) {
+        AbstractService.jerseyClient = jerseyClient;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static JerseyClient getJerseyClient() {
+        if (jerseyClient == null) {
+            synchronized (AbstractService.class) {
+                if (jerseyClient == null) {
+                    jerseyClient = JerseyClientBuilder.createClient();
+                }
+            }
+        }
+        return jerseyClient;
     }
 
     /**
      * @param key
      */
-    public void setKey(final String key) {
-        this.key = key;
+    public static void setKey(final String key) {
+        AbstractService.key = key;
+    }
+
+    public static String getKey() {
+        return key;
     }
 
     @PostConstruct
@@ -69,9 +96,7 @@ public abstract class AbstractService {
     }
 
     void onPostConstruct() {
-        if (null == jerseyClient) {
-            jerseyClient = JerseyClientBuilder.createClient();
-        }
+        getJerseyClient();
     }
 
     <T extends AbstractPayload.Init<T, U>, U extends AbstractPayload> void integrateDefaultValues(AbstractPayload.Init<T, U> payloadBuilder) {
@@ -82,8 +107,8 @@ public abstract class AbstractService {
 
     <T, E extends Error> T send(final AbstractPayload payload, final Class<T> responseClass,
                                 final Class<E> errorClass) throws E, IOException {
-        final Response response = jerseyClient
-                .target(baseUrl)
+        final Response response = getJerseyClient()
+                .target(getBaseUrl())
                 .path(payload.getPath())
                 .request()
                 .post(Entity.json(payload));

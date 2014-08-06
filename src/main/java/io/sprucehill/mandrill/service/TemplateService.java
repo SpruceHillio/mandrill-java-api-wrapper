@@ -38,8 +38,7 @@ public class TemplateService extends AbstractService implements ITemplateService
             return renderTemplateResponse.getHtml();
         } catch (final MessageError e) {
             LOGGER.warn("Got RenderTemplateError with code {}, name {} and message {} when " +
-                    "rendering template!", new Object[]{e.getCode().toString(), e.getName(),
-                    e.getMessage()});
+                    "rendering template!", e.getCode().toString(), e.getName(), e.getMessage());
             throw e;
         } catch (final IOException e) {
             LOGGER.error("Got IOException while rendering template!");

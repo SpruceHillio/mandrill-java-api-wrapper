@@ -23,7 +23,6 @@ import io.sprucehill.mandrill.data.error.MessageError;
 import io.sprucehill.mandrill.data.error.PreBuildError;
 import io.sprucehill.mandrill.data.error.TemplateMessageError;
 import io.sprucehill.mandrill.data.request.MessageSendPayload;
-import io.sprucehill.mandrill.data.request.RejectsAddPayload;
 import io.sprucehill.mandrill.data.request.TemplateMessageSendPayload;
 import io.sprucehill.mandrill.data.response.MessageResponse;
 

@@ -21,12 +21,12 @@ import java.util.List;
 
 import io.sprucehill.mandrill.data.error.MessageError;
 import io.sprucehill.mandrill.data.error.PreBuildError;
-import io.sprucehill.mandrill.data.error.TemplateMessageError;
-import io.sprucehill.mandrill.data.request.*;
+import io.sprucehill.mandrill.data.request.RejectsAddPayload;
+import io.sprucehill.mandrill.data.request.RejectsDeletePayload;
+import io.sprucehill.mandrill.data.request.RejectsListPayload;
 import io.sprucehill.mandrill.data.response.AnyListAddResponse;
 import io.sprucehill.mandrill.data.response.AnyListDeleteResponse;
 import io.sprucehill.mandrill.data.response.AnyListListResponse;
-import io.sprucehill.mandrill.data.response.MessageResponse;
 
 /**
  * @author Michael Duergner <michael@sprucehill.io>
@@ -38,7 +38,7 @@ public interface IRejectsService {
      * @throws io.sprucehill.mandrill.data.error.MessageError
      * @throws java.io.IOException
      */
-    List<AnyListAddResponse> add(final RejectsAddPayload payload)
+    AnyListAddResponse add(final RejectsAddPayload payload)
             throws MessageError, IOException;
 
     /**
@@ -48,7 +48,7 @@ public interface IRejectsService {
      * @throws io.sprucehill.mandrill.data.error.MessageError
      * @throws java.io.IOException
      */
-    List<AnyListAddResponse> add(final RejectsAddPayload.Builder payloadBuilder)
+    AnyListAddResponse add(final RejectsAddPayload.Builder payloadBuilder)
             throws PreBuildError, MessageError, IOException;
 
     /**
@@ -57,7 +57,7 @@ public interface IRejectsService {
      * @throws io.sprucehill.mandrill.data.error.MessageError
      * @throws java.io.IOException
      */
-    List<AnyListDeleteResponse> delete(final RejectsDeletePayload payload)
+    AnyListDeleteResponse delete(final RejectsDeletePayload payload)
             throws MessageError, IOException;
 
     /**
@@ -67,7 +67,7 @@ public interface IRejectsService {
      * @throws io.sprucehill.mandrill.data.error.MessageError
      * @throws java.io.IOException
      */
-    List<AnyListDeleteResponse> delete(final RejectsDeletePayload.Builder payloadBuilder)
+    AnyListDeleteResponse delete(final RejectsDeletePayload.Builder payloadBuilder)
             throws PreBuildError, MessageError, IOException;
 
     /**

@@ -16,13 +16,7 @@ limitations under the License.
 
 package io.sprucehill.mandrill.data.request;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.sprucehill.mandrill.data.AbstractJsonBase;
-import io.sprucehill.mandrill.data.error.PreBuildError;
 
 /**
  * @author Michael Duergner <michael@sprucehill.io>
