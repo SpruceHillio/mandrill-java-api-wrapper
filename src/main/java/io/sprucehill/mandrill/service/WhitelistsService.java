@@ -21,6 +21,7 @@ import java.util.List;
 
 import io.sprucehill.mandrill.data.error.MessageError;
 import io.sprucehill.mandrill.data.error.PreBuildError;
+import io.sprucehill.mandrill.data.request.MessageSendPayload;
 import io.sprucehill.mandrill.data.request.WhitelistsAddPayload;
 import io.sprucehill.mandrill.data.request.WhitelistsDeletePayload;
 import io.sprucehill.mandrill.data.request.WhitelistsListPayload;
@@ -34,14 +35,15 @@ import io.sprucehill.mandrill.data.response.AnyListListResponse;
 public class WhitelistsService extends AbstractService implements IWhitelistsService {
 
     @Override
-    public List<AnyListAddResponse> add(final WhitelistsAddPayload payload)
+    public AnyListAddResponse add(final WhitelistsAddPayload payload)
             throws MessageError, IOException {
         try {
-            final List<AnyListAddResponse> messageResponses =
-                    send(payload, List.class, MessageError.class);
+            final AnyListAddResponse messageResponses =
+                    send(payload, AnyListAddResponse.class, MessageError.class);
             return messageResponses;
         } catch (final MessageError e) {
-            LOGGER.warn("Got MessageError with code {}, name {} and message {} when adding whitelist!", new Object[]{e.getCode().toString(), e.getName(), e.getMessage()});
+            LOGGER.warn("Got MessageError with code {}, name {} and message {} when adding whitelist!",
+                    e.getCode().toString(), e.getName(), e.getMessage());
             throw e;
         } catch (final IOException e) {
             LOGGER.error("Got IOException while sending message!");
@@ -50,20 +52,21 @@ public class WhitelistsService extends AbstractService implements IWhitelistsSer
     }
 
     @Override
-    public List<AnyListAddResponse> add(final WhitelistsAddPayload.Builder payloadBuilder)
+    public AnyListAddResponse add(final WhitelistsAddPayload.Builder payloadBuilder)
             throws PreBuildError, MessageError, IOException {
+        integrateDefaultValues(payloadBuilder);
         return add(payloadBuilder.build());
     }
 
     @Override
-    public List<AnyListDeleteResponse> delete(final WhitelistsDeletePayload payload)
+    public AnyListDeleteResponse delete(final WhitelistsDeletePayload payload)
             throws MessageError, IOException {
         try {
-            final List<AnyListDeleteResponse> messageResponses =
-                    send(payload, List.class, MessageError.class);
+            final AnyListDeleteResponse messageResponses =
+                    send(payload, AnyListDeleteResponse.class, MessageError.class);
             return messageResponses;
         } catch (final MessageError e) {
-            LOGGER.warn("Got MessageError with code {}, name {} and message {} when deleting whitelist!", new Object[]{e.getCode().toString(), e.getName(), e.getMessage()});
+            LOGGER.warn("Got MessageError with code {}, name {} and message {} when deleting whitelist!", e.getCode().toString(), e.getName(), e.getMessage());
             throw e;
         } catch (final IOException e) {
             LOGGER.error("Got IOException while deleting whitelist!");
@@ -72,8 +75,9 @@ public class WhitelistsService extends AbstractService implements IWhitelistsSer
     }
 
     @Override
-    public List<AnyListDeleteResponse> delete(final WhitelistsDeletePayload.Builder payloadBuilder)
+    public AnyListDeleteResponse delete(final WhitelistsDeletePayload.Builder payloadBuilder)
             throws PreBuildError, MessageError, IOException {
+        integrateDefaultValues(payloadBuilder);
         return delete(payloadBuilder.build());
     }
 
@@ -85,7 +89,8 @@ public class WhitelistsService extends AbstractService implements IWhitelistsSer
                     send(payload, List.class, MessageError.class);
             return messageResponses;
         } catch (final MessageError e) {
-            LOGGER.warn("Got MessageError with code {}, name {} and message {} when listing whitelists!", new Object[]{e.getCode().toString(), e.getName(), e.getMessage()});
+            LOGGER.warn("Got MessageError with code {}, name {} and message {} when listing whitelists!",
+                    e.getCode().toString(), e.getName(), e.getMessage());
             throw e;
         } catch (final IOException e) {
             LOGGER.error("Got IOException while listing whitelists!");
@@ -96,6 +101,7 @@ public class WhitelistsService extends AbstractService implements IWhitelistsSer
     @Override
     public List<AnyListListResponse> list(final WhitelistsListPayload.Builder payloadBuilder)
             throws PreBuildError, MessageError, IOException {
+        integrateDefaultValues(payloadBuilder);
         return list(payloadBuilder.build());
     }
 }

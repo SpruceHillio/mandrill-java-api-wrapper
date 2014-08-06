@@ -16,8 +16,6 @@ limitations under the License.
 
 package io.sprucehill.mandrill.data.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 /**
  * @author Michael Duergner <michael@sprucehill.io>
  */

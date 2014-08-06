@@ -16,9 +16,6 @@ limitations under the License.
 
 package io.sprucehill.mandrill.data.request;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -33,8 +30,6 @@ public abstract class AbstractWhitelistsPayload extends AbstractPayload {
 
     public static abstract class Init<T extends Init<T, U>, U extends AbstractWhitelistsPayload>
             extends AbstractPayload.Init<T, U> {
-
-        protected U object;
 
         protected Init(U object) {
             super(object);

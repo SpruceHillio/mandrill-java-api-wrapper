@@ -21,12 +21,12 @@ import java.util.List;
 
 import io.sprucehill.mandrill.data.error.MessageError;
 import io.sprucehill.mandrill.data.error.PreBuildError;
-import io.sprucehill.mandrill.data.error.TemplateMessageError;
-import io.sprucehill.mandrill.data.request.*;
+import io.sprucehill.mandrill.data.request.RejectsAddPayload;
+import io.sprucehill.mandrill.data.request.RejectsDeletePayload;
+import io.sprucehill.mandrill.data.request.RejectsListPayload;
 import io.sprucehill.mandrill.data.response.AnyListAddResponse;
 import io.sprucehill.mandrill.data.response.AnyListDeleteResponse;
 import io.sprucehill.mandrill.data.response.AnyListListResponse;
-import io.sprucehill.mandrill.data.response.MessageResponse;
 
 /**
  * @author Michael Duergner <michael@sprucehill.io>
@@ -34,14 +34,15 @@ import io.sprucehill.mandrill.data.response.MessageResponse;
 public class RejectsService extends AbstractService implements IRejectsService {
 
     @Override
-    public List<AnyListAddResponse> add(final RejectsAddPayload payload)
+    public AnyListAddResponse add(final RejectsAddPayload payload)
             throws MessageError, IOException {
         try {
-            final List<AnyListAddResponse> messageResponses =
-                    send(payload, List.class, MessageError.class);
+            final AnyListAddResponse messageResponses =
+                    send(payload, AnyListAddResponse.class, MessageError.class);
             return messageResponses;
         } catch (final MessageError e) {
-            LOGGER.warn("Got MessageError with code {}, name {} and message {} when adding reject!", new Object[]{e.getCode().toString(), e.getName(), e.getMessage()});
+            LOGGER.warn("Got MessageError with code {}, name {} and message {} when adding reject!",
+                    e.getCode().toString(), e.getName(), e.getMessage());
             throw e;
         } catch (final IOException e) {
             LOGGER.error("Got IOException while adding reject!");
@@ -50,20 +51,22 @@ public class RejectsService extends AbstractService implements IRejectsService {
     }
 
     @Override
-    public List<AnyListAddResponse> add(final RejectsAddPayload.Builder payloadBuilder)
+    public AnyListAddResponse add(final RejectsAddPayload.Builder payloadBuilder)
             throws PreBuildError, MessageError, IOException {
+        integrateDefaultValues(payloadBuilder);
         return add(payloadBuilder.build());
     }
 
     @Override
-    public List<AnyListDeleteResponse> delete(final RejectsDeletePayload payload)
+    public AnyListDeleteResponse delete(final RejectsDeletePayload payload)
             throws MessageError, IOException {
         try {
-            final List<AnyListDeleteResponse> messageResponses =
-                    send(payload, List.class, MessageError.class);
+            final AnyListDeleteResponse messageResponses =
+                    send(payload, AnyListDeleteResponse.class, MessageError.class);
             return messageResponses;
         } catch (final MessageError e) {
-            LOGGER.warn("Got MessageError with code {}, name {} and message {} when deleting reject!", new Object[]{e.getCode().toString(), e.getName(), e.getMessage()});
+            LOGGER.warn("Got MessageError with code {}, name {} and message {} when deleting reject!",
+                    e.getCode().toString(), e.getName(), e.getMessage());
             throw e;
         } catch (final IOException e) {
             LOGGER.error("Got IOException while deleting reject!");
@@ -72,8 +75,9 @@ public class RejectsService extends AbstractService implements IRejectsService {
     }
 
     @Override
-    public List<AnyListDeleteResponse> delete(final RejectsDeletePayload.Builder payloadBuilder)
+    public AnyListDeleteResponse delete(final RejectsDeletePayload.Builder payloadBuilder)
             throws PreBuildError, MessageError, IOException {
+        integrateDefaultValues(payloadBuilder);
         return delete(payloadBuilder.build());
     }
 
@@ -85,7 +89,8 @@ public class RejectsService extends AbstractService implements IRejectsService {
                     send(payload, List.class, MessageError.class);
             return messageResponses;
         } catch (final MessageError e) {
-            LOGGER.warn("Got MessageError with code {}, name {} and message {} when listing rejects!", new Object[]{e.getCode().toString(), e.getName(), e.getMessage()});
+            LOGGER.warn("Got MessageError with code {}, name {} and message {} when listing rejects!",
+                    e.getCode().toString(), e.getName(), e.getMessage());
             throw e;
         } catch (final IOException e) {
             LOGGER.error("Got IOException while listing rejects!");
@@ -96,7 +101,7 @@ public class RejectsService extends AbstractService implements IRejectsService {
     @Override
     public List<AnyListListResponse> list(final RejectsListPayload.Builder payloadBuilder)
             throws PreBuildError, MessageError, IOException {
+        integrateDefaultValues(payloadBuilder);
         return list(payloadBuilder.build());
     }
-
 }

@@ -38,7 +38,7 @@ public interface IWhitelistsService {
      * @throws io.sprucehill.mandrill.data.error.MessageError
      * @throws java.io.IOException
      */
-    List<AnyListAddResponse> add(final WhitelistsAddPayload payload)
+    AnyListAddResponse add(final WhitelistsAddPayload payload)
             throws MessageError, IOException;
 
     /**
@@ -48,7 +48,7 @@ public interface IWhitelistsService {
      * @throws io.sprucehill.mandrill.data.error.MessageError
      * @throws java.io.IOException
      */
-    List<AnyListAddResponse> add(final WhitelistsAddPayload.Builder payloadBuilder)
+    AnyListAddResponse add(final WhitelistsAddPayload.Builder payloadBuilder)
             throws PreBuildError, MessageError, IOException;
 
     /**
@@ -57,7 +57,7 @@ public interface IWhitelistsService {
      * @throws io.sprucehill.mandrill.data.error.MessageError
      * @throws java.io.IOException
      */
-    List<AnyListDeleteResponse> delete(final WhitelistsDeletePayload payload)
+    AnyListDeleteResponse delete(final WhitelistsDeletePayload payload)
             throws MessageError, IOException;
 
     /**
@@ -67,7 +67,7 @@ public interface IWhitelistsService {
      * @throws io.sprucehill.mandrill.data.error.MessageError
      * @throws java.io.IOException
      */
-    List<AnyListDeleteResponse> delete(final WhitelistsDeletePayload.Builder payloadBuilder)
+    AnyListDeleteResponse delete(final WhitelistsDeletePayload.Builder payloadBuilder)
             throws PreBuildError, MessageError, IOException;
 
     /**

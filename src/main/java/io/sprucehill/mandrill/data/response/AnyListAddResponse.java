@@ -16,7 +16,6 @@ limitations under the License.
 
 package io.sprucehill.mandrill.data.response;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
