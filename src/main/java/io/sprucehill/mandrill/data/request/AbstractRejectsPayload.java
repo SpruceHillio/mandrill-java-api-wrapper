@@ -29,8 +29,6 @@ public abstract class AbstractRejectsPayload extends AbstractPayload {
     @JsonProperty
     protected String subaccount;
 
-    public abstract String getPath();
-
     public static abstract class Init<T extends Init<T, U>, U extends AbstractRejectsPayload>
             extends AbstractPayload.Init<T, U> {
 
