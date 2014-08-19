@@ -28,6 +28,7 @@ import io.sprucehill.mandrill.data.request.WhitelistsListPayload;
 import io.sprucehill.mandrill.data.response.AnyListAddResponse;
 import io.sprucehill.mandrill.data.response.AnyListDeleteResponse;
 import io.sprucehill.mandrill.data.response.AnyListListResponse;
+import io.sprucehill.mandrill.data.response.AnyListListResponseGenericType;
 
 /**
  * @author Michael Duergner <michael@sprucehill.io>
@@ -86,7 +87,7 @@ public class WhitelistsService extends AbstractService implements IWhitelistsSer
             throws MessageError, IOException {
         try {
             final List<AnyListListResponse> messageResponses =
-                    send(payload, List.class, MessageError.class);
+                    send(payload, new AnyListListResponseGenericType(), MessageError.class);
             return messageResponses;
         } catch (final MessageError e) {
             LOGGER.warn("Got MessageError with code {}, name {} and message {} when listing whitelists!",
