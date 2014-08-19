@@ -25,6 +25,7 @@ import io.sprucehill.mandrill.data.error.RenderTemplateError;
 import io.sprucehill.mandrill.data.request.*;
 import io.sprucehill.mandrill.data.response.TemplateRenderResponse;
 import io.sprucehill.mandrill.data.response.TemplateResponse;
+import io.sprucehill.mandrill.data.response.TemplateResponseGenericType;
 
 /**
  * @author Michael Duergner <michael@sprucehill.io>
@@ -181,7 +182,7 @@ public class TemplateService extends AbstractService implements ITemplateService
             throws RenderTemplateError, IOException {
         try {
             final List<TemplateResponse> templateResponse =
-                    send(payload, List.class, RenderTemplateError.class);
+                    send(payload, new TemplateResponseGenericType(), RenderTemplateError.class);
             return templateResponse;
         } catch (final MessageError e) {
             LOGGER.warn("Got RenderTemplateError with code {}, name {} and message {} when " +

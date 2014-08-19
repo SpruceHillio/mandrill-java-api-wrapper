@@ -20,6 +20,7 @@ import java.io.IOException;
 
 import javax.annotation.PostConstruct;
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.client.JerseyClient;
@@ -122,4 +123,23 @@ public abstract class AbstractService {
             throw error;
         }
     }
+
+    <T, E extends Error> T send(final AbstractPayload payload, final GenericType<T> responseClass,
+                                final Class<E> errorClass) throws E, IOException {
+        final Response response = getJerseyClient()
+                .target(getBaseUrl())
+                .path(payload.getPath())
+                .request()
+                .post(Entity.json(payload));
+
+        if (200 == response.getStatus()) {
+            final T result = response.readEntity(responseClass);
+            return result;
+        } else {
+            final E error = response.readEntity(errorClass);
+            LOGGER.debug("Got error {} while calling {}.", error.toString(), payload.getPath());
+            throw error;
+        }
+    }
+
 }

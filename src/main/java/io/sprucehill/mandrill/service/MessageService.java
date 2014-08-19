@@ -19,12 +19,15 @@ package io.sprucehill.mandrill.service;
 import java.io.IOException;
 import java.util.List;
 
+import javax.ws.rs.core.GenericType;
+
 import io.sprucehill.mandrill.data.error.MessageError;
 import io.sprucehill.mandrill.data.error.PreBuildError;
 import io.sprucehill.mandrill.data.error.TemplateMessageError;
 import io.sprucehill.mandrill.data.request.MessageSendPayload;
 import io.sprucehill.mandrill.data.request.MessageSendTemplatePayload;
 import io.sprucehill.mandrill.data.response.MessageResponse;
+import io.sprucehill.mandrill.data.response.MessageResponseListGenericType;
 
 /**
  * @author Michael Duergner <michael@sprucehill.io>
@@ -47,7 +50,7 @@ public class MessageService extends AbstractService implements IMessageService {
     public List<MessageResponse> sendMessage(final MessageSendPayload payload) throws MessageError, IOException {
         try {
             final List<MessageResponse> messageResponses =
-                    send(payload, List.class, MessageError.class);
+                    send(payload, new MessageResponseListGenericType(), MessageError.class);
             return messageResponses;
         } catch (MessageError e) {
             LOGGER.warn("Got MessageError with code {}, name {} and message {} when sending message!",
@@ -71,7 +74,7 @@ public class MessageService extends AbstractService implements IMessageService {
             throws TemplateMessageError, IOException {
         try {
             final List<MessageResponse> messageResponses =
-                    send(payload, List.class, MessageError.class);
+                    send(payload, new MessageResponseListGenericType(), MessageError.class);
             return messageResponses;
         } catch (MessageError e) {
             LOGGER.warn("Got MessageError with code {}, name {} and message {} when sending message!",
