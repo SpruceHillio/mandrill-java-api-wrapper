@@ -34,11 +34,18 @@ public class MessagePayload extends AbstractPayload {
 
     public static final class Recipient extends AbstractJsonBase {
 
+        public static enum Type {
+            to,cc,bcc
+        }
+
         @JsonProperty
         protected String email;
 
         @JsonProperty
         protected String name;
+
+        @JsonProperty
+        protected Type type = Type.to;
 
         protected Recipient() {}
 
@@ -46,9 +53,20 @@ public class MessagePayload extends AbstractPayload {
             this.email = email;
         }
 
+        protected Recipient(String email, Type type) {
+            this.email = email;
+            this.type = type;
+        }
+
         protected Recipient(String email, String name) {
             this(email);
             this.name = name;
+        }
+
+        protected Recipient(String email, String name, Type type) {
+            this(email);
+            this.name = name;
+            this.type = type;
         }
 
         @Override
@@ -353,8 +371,24 @@ public class MessagePayload extends AbstractPayload {
             return withRecipient(new Recipient(email));
         }
 
+        public T withCc(String email) {
+            return withRecipient(new Recipient(email, Recipient.Type.cc));
+        }
+
+        public T withBcc(String email) {
+            return withRecipient(new Recipient(email, Recipient.Type.bcc));
+        }
+
         public T withTo(String email, String name) {
             return withRecipient(new Recipient(email, name));
+        }
+
+        public T withCc(String email, String name) {
+            return withRecipient(new Recipient(email, name, Recipient.Type.cc));
+        }
+
+        public T withBcc(String email, String name) {
+            return withRecipient(new Recipient(email, name, Recipient.Type.bcc));
         }
 
         public T withInlineCss(){
