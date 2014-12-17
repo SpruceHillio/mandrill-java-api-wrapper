@@ -193,11 +193,14 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+<<<<<<< HEAD
         <version.maven-compiler>3.1</version.maven-compiler>
         <version.maven-javadoc>2.9.1</version.maven-javadoc>
         <version.jackson>2.0.2</version.jackson>
         <version.maven-source>2.3</version.maven-source>
         <version.spock>0.6-groovy-1.8</version.spock>
+=======
+>>>>>>> eee42a6c19c1488c234792c79963384ebb5d2150
         <version.httpclient>4.2.1</version.httpclient>
         <version.jersey>2.11</version.jersey>
         <version.slf4j>1.7.7</version.slf4j>
