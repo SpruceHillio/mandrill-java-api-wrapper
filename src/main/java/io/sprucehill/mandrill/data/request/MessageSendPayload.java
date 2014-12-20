@@ -1,5 +1,5 @@
 /*
-Copyright 2013-2014 SpruceHill.io GmbH
+Copyright 2013-2014 SpruceHill.io GmbH 2014 Stephan Wienczny
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -16,16 +16,23 @@ limitations under the License.
 
 package io.sprucehill.mandrill.data.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.sprucehill.mandrill.data.AbstractJsonBase;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.sprucehill.mandrill.data.AbstractJsonBase;
+
 /**
  * @author Michael Duergner <michael@sprucehill.io>
+ * @author Stephan Wienczny <stephan.wienczny@ybm-deutschland.de>
  */
-public class MessagePayload extends AbstractPayload {
+public class MessageSendPayload extends AbstractPayload {
+
+    @JsonProperty
+    protected Message message = new Message();
+    @JsonProperty
+    protected boolean async = Boolean.FALSE;
 
     @Override
     public String getPath() {
@@ -75,7 +82,7 @@ public class MessagePayload extends AbstractPayload {
         }
 
         @Override
-        public boolean equals(Object o) {
+        public boolean equals(final Object o) {
             if (null == o) {
                 return false;
             }
@@ -83,7 +90,7 @@ public class MessagePayload extends AbstractPayload {
                 return false;
             }
 
-            return null == email ? super.equals(o) : email.equals(((Recipient)o).email);
+            return null == email ? super.equals(o) : email.equals(((Recipient) o).email);
         }
     }
 
@@ -95,9 +102,10 @@ public class MessagePayload extends AbstractPayload {
         @JsonProperty
         protected String content;
 
-        protected Variable() {}
+        protected Variable() {
+        }
 
-        protected Variable(String name, String content) {
+        protected Variable(final String name, final String content) {
             this.name = name;
             this.content = content;
         }
@@ -108,7 +116,7 @@ public class MessagePayload extends AbstractPayload {
         }
 
         @Override
-        public boolean equals(Object o) {
+        public boolean equals(final Object o) {
             if (null == o) {
                 return false;
             }
@@ -116,7 +124,7 @@ public class MessagePayload extends AbstractPayload {
                 return false;
             }
 
-            return null == name ? super.equals(o) : name.equals(((Variable)o).name);
+            return null == name ? super.equals(o) : name.equals(((Variable) o).name);
         }
     }
 
@@ -129,13 +137,14 @@ public class MessagePayload extends AbstractPayload {
         @JsonProperty
         protected List<Variable> vars = new ArrayList<Variable>();
 
-        protected RecipientMergeVars() {}
+        protected RecipientMergeVars() {
+        }
 
-        protected RecipientMergeVars(String recipient) {
+        protected RecipientMergeVars(final String recipient) {
             this.recipient = recipient;
         }
 
-        protected RecipientMergeVars(String recipient, List<Variable> vars) {
+        protected RecipientMergeVars(final String recipient, final List<Variable> vars) {
             this.recipient = recipient;
             this.vars = vars;
         }
@@ -146,7 +155,7 @@ public class MessagePayload extends AbstractPayload {
         }
 
         @Override
-        public boolean equals(Object o) {
+        public boolean equals(final Object o) {
             if (null == o) {
                 return false;
             }
@@ -155,7 +164,7 @@ public class MessagePayload extends AbstractPayload {
                 return false;
             }
 
-            return null == recipient ? super.equals(o) : recipient.equals(((RecipientMergeVars)o).recipient);
+            return null == recipient ? super.equals(o) : recipient.equals(((RecipientMergeVars) o).recipient);
         }
     }
 
@@ -168,13 +177,14 @@ public class MessagePayload extends AbstractPayload {
         @JsonProperty
         protected List<String> values = new ArrayList<String>();
 
-        protected RecipientMetadata() {}
+        protected RecipientMetadata() {
+        }
 
-        protected RecipientMetadata(String recipient) {
+        protected RecipientMetadata(final String recipient) {
             this.recipient = recipient;
         }
 
-        protected RecipientMetadata(String recipient, List<String> values) {
+        protected RecipientMetadata(final String recipient, final List<String> values) {
             this.recipient = recipient;
             this.values = values;
         }
@@ -185,7 +195,7 @@ public class MessagePayload extends AbstractPayload {
         }
 
         @Override
-        public boolean equals(Object o) {
+        public boolean equals(final Object o) {
             if (null == o) {
                 return false;
             }
@@ -194,7 +204,7 @@ public class MessagePayload extends AbstractPayload {
                 return false;
             }
 
-            return null == recipient ? super.equals(o) : recipient.equals(((RecipientMetadata)o).recipient);
+            return null == recipient ? super.equals(o) : recipient.equals(((RecipientMetadata) o).recipient);
         }
     }
 
@@ -207,11 +217,12 @@ public class MessagePayload extends AbstractPayload {
         protected String name;
 
         @JsonProperty
-        protected String content;
+        protected byte[] content;
 
-        protected Attachment() {}
+        protected Attachment() {
+        }
 
-        protected Attachment(String type, String name, String content) {
+        protected Attachment(final String type, final String name, final byte[] content) {
             this.type = type;
             this.name = name;
             this.content = content;
@@ -223,7 +234,7 @@ public class MessagePayload extends AbstractPayload {
         }
 
         @Override
-        public boolean equals(Object o) {
+        public boolean equals(final Object o) {
             if (null == o) {
                 return false;
             }
@@ -231,7 +242,7 @@ public class MessagePayload extends AbstractPayload {
                 return false;
             }
 
-            return null == name ? super.equals(o) : name.equals(((Attachment)o).name);
+            return null == name ? super.equals(o) : name.equals(((Attachment) o).name);
         }
     }
 
@@ -258,11 +269,11 @@ public class MessagePayload extends AbstractPayload {
         protected List<Recipient> to = new ArrayList<Recipient>();
 
         @JsonProperty(
-                 value = "inline_css")
+                value = "inline_css")
         protected boolean inlineCss = Boolean.FALSE;
 
         @JsonProperty(
-              value = "track_opens")
+                value = "track_opens")
         protected boolean trackOpens = Boolean.FALSE;
 
         @JsonProperty(
@@ -315,43 +326,39 @@ public class MessagePayload extends AbstractPayload {
         protected List<Attachment> attachments = new ArrayList<Attachment>();
     }
 
-    @JsonProperty
-    protected Message message = new Message();
-
-    @JsonProperty
-    protected boolean async = Boolean.FALSE;
-
-    public static abstract class Init<T extends Init<T,U>, U extends MessagePayload> extends AbstractPayload.Init<T,U> implements IWithMergeVarRecipientAwarePayloadBuilder<T> {
+    public static abstract class Init<T extends Init<T, U>, U extends MessageSendPayload>
+            extends AbstractPayload.Init<T, U>
+            implements IWithMergeVarRecipientAwarePayloadBuilder<T> {
 
         protected Init(U object) {
             super(object);
         }
 
-        public T withHtml(String html) {
+        public T withHtml(final String html) {
             object.message.html = html;
             return self();
         }
 
-        public T withText(String text) {
+        public T withText(final String text) {
             object.message.text = text;
             return self();
         }
 
-        public T withSubject(String subject) {
+        public T withSubject(final String subject) {
             object.message.subject = subject;
             return self();
         }
 
-        public T withFromEmail(String fromEmail) {
+        public T withFromEmail(final String fromEmail) {
             object.message.fromEmail = fromEmail;
-        return self();
+            return self();
         }
 
         public boolean hasFromEmail() {
             return null != object.message.fromEmail && !object.message.fromEmail.isEmpty();
         }
 
-        public T withFromName(String fromName) {
+        public T withFromName(final String fromName) {
             object.message.fromName = fromName;
             return self();
         }
@@ -360,15 +367,15 @@ public class MessagePayload extends AbstractPayload {
             return null != object.message.fromName && !object.message.fromName.isEmpty();
         }
 
-        private T withRecipient(Recipient recipient) {
+        public T withTo(final String email) {
+            return withRecipient(new Recipient(email));
+        }
+
+        private T withRecipient(final Recipient recipient) {
             if (!object.message.to.contains(recipient)) {
                 object.message.to.add(recipient);
             }
             return self();
-        }
-
-        public T withTo(String email) {
-            return withRecipient(new Recipient(email));
         }
 
         public T withCc(String email) {
@@ -396,11 +403,11 @@ public class MessagePayload extends AbstractPayload {
           return self();
         }
 
-        public T withoutInlineCss(){
-          object.message.inlineCss = Boolean.FALSE;
-          return self();
+        public T withoutInlineCss() {
+            object.message.inlineCss = Boolean.FALSE;
+            return self();
         }
-        
+
         public T withTrackOpens() {
             object.message.trackOpens = Boolean.TRUE;
             return self();
@@ -451,77 +458,75 @@ public class MessagePayload extends AbstractPayload {
             return self();
         }
 
-        public T withBccAddress(String bccAddress){
+        public T withBccAddress(final String bccAddress) {
             object.message.bccAddress = bccAddress;
             return self();
         }
 
-        public T withGlobalMergeVar(String name, String content) {
-            Variable var = new Variable(name,content);
+        public T withMergeVar(final String name, final String content) {
+            return withGlobalMergeVar(name, content);
+        }
+
+        public T withGlobalMergeVar(final String name, final String content) {
+            Variable var = new Variable(name, content);
             if (!object.message.globalMergeVars.contains(var)) {
                 object.message.globalMergeVars.add(var);
             }
             return self();
         }
 
-        public T withMergeVar(String name, String content) {
-            return withGlobalMergeVar(name,content);
-        }
-
-        public T withMergeVar(String recipient, String name, String content) {
+        public T withMergeVar(final String recipient, final String name, final String content) {
             RecipientMergeVars mergeVars = new RecipientMergeVars(recipient);
             int index = object.message.mergeVars.indexOf(mergeVars);
             if (-1 != index) {
                 mergeVars = object.message.mergeVars.get(index);
-            }
-            else {
+            } else {
                 object.message.mergeVars.add(mergeVars);
             }
-            mergeVars.vars.add(new Variable(name,content));
+            mergeVars.vars.add(new Variable(name, content));
             return self();
         }
 
-        public T withTag(String tag) {
+        public T withTag(final String tag) {
             if (!object.message.tags.contains(tag)) {
                 object.message.tags.add(tag);
             }
             return self();
         }
 
-        public T withGoogleAnalyticsDomain(String googleAnalyticsDomain) {
+        public T withGoogleAnalyticsDomain(final String googleAnalyticsDomain) {
             if (!object.message.googleAnalyticsDomains.contains(googleAnalyticsDomain)) {
                 object.message.googleAnalyticsDomains.add(googleAnalyticsDomain);
             }
             return self();
         }
 
-        public T withGoogleAnalyticsCampaign(String googleAnalyticsCampaign) {
+        public T withGoogleAnalyticsCampaign(final String googleAnalyticsCampaign) {
             object.message.googleAnalyticsCampaign = googleAnalyticsCampaign;
             return self();
         }
 
-        public T withMetadata(String metadata) {
+        public T withMetadata(final String metadata) {
             if (!object.message.metadata.contains(metadata)) {
                 object.message.metadata.add(metadata);
             }
             return self();
         }
 
-        public T withRecipientMetadata(String recipient, String metadata) {
+        public T withRecipientMetadata(final String recipient, final String metadata) {
             RecipientMetadata recipientMetadata = new RecipientMetadata(recipient);
             int index = object.message.recipientMetadata.indexOf(recipientMetadata);
             if (-1 != index) {
                 recipientMetadata = object.message.recipientMetadata.get(index);
-            }
-            else {
+            } else {
                 object.message.recipientMetadata.add(recipientMetadata);
             }
             recipientMetadata.values.add(metadata);
             return self();
         }
 
-        public T withAttachment(String type, String name, String content) {
-            Attachment attachment = new Attachment(type,name,content);
+        public T withAttachment(final String type, final String name, final byte[] content) {
+            Attachment attachment = new Attachment(type, name, content);
             if (!object.message.attachments.contains(attachment)) {
                 object.message.attachments.add(attachment);
             }
@@ -539,13 +544,13 @@ public class MessagePayload extends AbstractPayload {
         }
     }
 
-    public static class Builder extends Init<Builder,MessagePayload> {
+    public static class Builder extends Init<Builder, MessageSendPayload> {
 
         public Builder() {
-            super(new MessagePayload());
+            super(new MessageSendPayload());
         }
 
-        protected Builder(MessagePayload object) {
+        protected Builder(final MessageSendPayload object) {
             super(object);
         }
 

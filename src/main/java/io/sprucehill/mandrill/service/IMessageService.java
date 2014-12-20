@@ -1,5 +1,5 @@
 /*
-Copyright 2013-2014 SpruceHill.io GmbH
+Copyright 2013-2014 SpruceHill.io GmbH 2014 Stephan Wienczny
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -16,56 +16,63 @@ limitations under the License.
 
 package io.sprucehill.mandrill.service;
 
-import io.sprucehill.mandrill.data.error.MessageError;
-import io.sprucehill.mandrill.data.error.PreBuildError;
-import io.sprucehill.mandrill.data.error.TemplateMessageError;
-import io.sprucehill.mandrill.data.request.MessagePayload;
-import io.sprucehill.mandrill.data.request.TemplateMessagePayload;
-import io.sprucehill.mandrill.data.response.MessageResponse;
-
 import java.io.IOException;
 import java.util.List;
 
+import io.sprucehill.mandrill.data.error.MessageError;
+import io.sprucehill.mandrill.data.error.PreBuildError;
+import io.sprucehill.mandrill.data.error.TemplateMessageError;
+import io.sprucehill.mandrill.data.request.MessageSendPayload;
+import io.sprucehill.mandrill.data.request.MessageSendTemplatePayload;
+import io.sprucehill.mandrill.data.response.MessageResponse;
+
 /**
  * @author Michael Duergner <michael@sprucehill.io>
+ * @author Stephan Wienczny <stephan.wienczny@ybm-deutschland.de>
  */
 public interface IMessageService {
 
     /**
-     *
-     * @param payload
      * @return
      * @throws MessageError
      * @throws IOException
      */
-    List<MessageResponse> sendMessage(MessagePayload payload) throws MessageError, IOException;
+    List<MessageResponse> sendMessage(final MessageSendPayload payload)
+            throws MessageError, IOException;
 
     /**
-     *
-     * @param payloadBuilder
      * @return
      * @throws PreBuildError
      * @throws MessageError
      * @throws IOException
      */
-    List<MessageResponse> sendMessage(MessagePayload.Builder payloadBuilder) throws PreBuildError, MessageError, IOException;
+    List<MessageResponse> sendMessage(final MessageSendPayload.Builder payloadBuilder)
+            throws PreBuildError, MessageError, IOException;
 
     /**
-     *
-     * @param payload
      * @return
      * @throws TemplateMessageError
      * @throws IOException
      */
-    List<MessageResponse> sendTemplateMessage(TemplateMessagePayload payload) throws TemplateMessageError, IOException;
+    List<MessageResponse> sendTemplateMessage(final MessageSendTemplatePayload payload)
+            throws TemplateMessageError, IOException;
 
     /**
-     *
-     * @param payloadBuilder
      * @return
      * @throws PreBuildError
      * @throws TemplateMessageError
      * @throws IOException
      */
-    List<MessageResponse> sendTemplateMessage(TemplateMessagePayload.Builder payloadBuilder) throws PreBuildError, TemplateMessageError, IOException;
+    List<MessageResponse> sendTemplateMessage(final MessageSendTemplatePayload.Builder payloadBuilder)
+            throws PreBuildError, TemplateMessageError, IOException;
+
+    /**
+     * @param fromEmail email set if missing from builder
+     */
+    void setFromEmail(final String fromEmail);
+
+    /**
+     * @param fromName name set if missing from builder
+     */
+    void setFromName(final String fromName);
 }

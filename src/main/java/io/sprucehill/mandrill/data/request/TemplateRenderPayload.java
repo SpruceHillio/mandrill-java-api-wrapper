@@ -16,19 +16,28 @@ limitations under the License.
 
 package io.sprucehill.mandrill.data.request;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.sprucehill.mandrill.data.AbstractJsonBase;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.sprucehill.mandrill.data.AbstractJsonBase;
+
 /**
  * @author Michael Duergner <michael@sprucehill.io>
+ * @author Stephan Wienczny <stephan.wienczny@ybm-deutschland.de>
  */
-public class RenderTemplatePayload extends AbstractPayload {
+public class TemplateRenderPayload extends AbstractPayload {
 
     public static final String PRE_BUILD_TEMPLATE_NAME_NOT_SET = "TEMPLATE_NAME_NOT_SET";
+    @JsonProperty(value = "template_name")
+    protected String templateName;
+    @JsonProperty(value = "template_content")
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    protected List<Variable> templateContent = new ArrayList<Variable>();
+    @JsonProperty(value = "merge_vars")
+    protected List<Variable> mergeVars = new ArrayList<Variable>();
 
     @Override
     public String getPath() {
@@ -43,7 +52,8 @@ public class RenderTemplatePayload extends AbstractPayload {
         @JsonProperty
         protected String content;
 
-        protected Variable() {}
+        protected Variable() {
+        }
 
         protected Variable(String name, String content) {
             this.name = name;
@@ -64,25 +74,13 @@ public class RenderTemplatePayload extends AbstractPayload {
                 return false;
             }
 
-            return null == name ? super.equals(o) : name.equals(((Variable)o).name);
+            return null == name ? super.equals(o) : name.equals(((Variable) o).name);
         }
     }
 
-    @JsonProperty(
-            value = "template_name")
-    protected String templateName;
-
-    @JsonProperty(
-            value = "template_content")
-    @JsonInclude(
-            value = JsonInclude.Include.NON_NULL)
-    protected List<Variable> templateContent = new ArrayList<Variable>();
-
-    @JsonProperty(
-            value = "merge_vars")
-    protected List<Variable> mergeVars = new ArrayList<Variable>();
-
-    protected static abstract class Init<T extends Init<T,U>, U extends RenderTemplatePayload> extends AbstractPayload.Init<T,U> implements IWithTemplateNamePayloadBuilder<T>, IWithTemplateContentPayloadBuilder<T>, IWithMergeVarPayloadBuilder<T> {
+    protected static abstract class Init<T extends Init<T, U>, U extends TemplateRenderPayload>
+            extends AbstractPayload.Init<T, U> implements IWithTemplateNamePayloadBuilder<T>,
+            IWithTemplateContentPayloadBuilder<T>, IWithMergeVarPayloadBuilder<T> {
 
         protected Init(U object) {
             super(object);
@@ -94,7 +92,7 @@ public class RenderTemplatePayload extends AbstractPayload {
         }
 
         public T withTemplateContent(String name, String content) {
-            Variable variable = new Variable(name,content);
+            Variable variable = new Variable(name, content);
             if (!object.templateContent.contains(variable)) {
                 object.templateContent.add(variable);
             }
@@ -102,7 +100,7 @@ public class RenderTemplatePayload extends AbstractPayload {
         }
 
         public T withMergeVar(String name, String content) {
-            Variable variable = new Variable(name,content);
+            Variable variable = new Variable(name, content);
             if (!object.mergeVars.contains(variable)) {
                 object.mergeVars.add(variable);
             }
@@ -113,15 +111,15 @@ public class RenderTemplatePayload extends AbstractPayload {
         protected void preBuild() {
             super.preBuild();
             if (null == object.templateName || object.templateName.isEmpty()) {
-                addPreBuildError(PRE_BUILD_TEMPLATE_NAME_NOT_SET,"'template_name' must be set and may not be empty!");
+                addPreBuildError(PRE_BUILD_TEMPLATE_NAME_NOT_SET, "'template_name' must be set and may not be empty!");
             }
         }
     }
 
-    public static class Builder extends Init<Builder,RenderTemplatePayload> {
+    public static class Builder extends Init<Builder, TemplateRenderPayload> {
 
         public Builder() {
-            super(new RenderTemplatePayload());
+            super(new TemplateRenderPayload());
         }
 
         @Override

@@ -25,7 +25,7 @@ import java.util.Set;
  */
 public class TemplateMessageError extends MessageError {
 
-    protected static abstract class Init<T extends Init<T,U>, U extends TemplateMessageError> extends MessageError.Init<T,U> {
+    protected static abstract class Init<T extends Init<T, U>, U extends TemplateMessageError> extends MessageError.Init<T, U> {
 
         private static final Set<String> names;
 
@@ -35,12 +35,12 @@ public class TemplateMessageError extends MessageError {
             names = Collections.unmodifiableSet(namesTmp);
         }
 
-        protected Init(U object) {
+        protected Init(final U object) {
             super(object);
         }
 
         @Override
-        public T withName(String name) {
+        public T withName(final String name) {
             if (names.contains(name)) {
                 return super.withName(name);
             }
@@ -48,7 +48,7 @@ public class TemplateMessageError extends MessageError {
         }
     }
 
-    public static class Builder extends Init<Builder,TemplateMessageError> {
+    public static class Builder extends Init<Builder, TemplateMessageError> {
 
         public Builder() {
             super(new TemplateMessageError());

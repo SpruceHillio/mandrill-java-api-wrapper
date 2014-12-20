@@ -16,48 +16,40 @@ limitations under the License.
 
 package io.sprucehill.mandrill.data.response;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jersey.repackaged.com.google.common.base.Objects;
-
 /**
- * @author Michael Duergner <michael@sprucehill.io>
  * @author Stephan Wienczny <stephan.wienczny@ybm-deutschland.de>
  */
-public class MessageResponse extends Response {
+public class AnyListListResponse extends Response {
 
     @JsonProperty
     protected String email;
     @JsonProperty
-    protected Status status;
-    @JsonProperty("reject_reason")
-    protected String rejectReason;
+    protected String detail;
+    @JsonProperty("created_at")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT")
+    protected Date createdAt;
 
     public String getEmail() {
         return email;
     }
 
-    public Status getStatus() {
-        return status;
+    public String getDetail() {
+        return detail;
     }
 
-    public String getRejectReason() {
-        return rejectReason;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("email", email).add("status", status)
-                .add("rejectReaseon", rejectReason).toString();
+        return jersey.repackaged.com.google.common.base.Objects.toStringHelper(this)
+                .add("email", email).add("detail", detail).add("createdAt", createdAt).toString();
     }
 
-    public static enum Status {
-        SENT, QUEUED, REJECTED, INVALID;
-
-        @JsonCreator
-        public static Status parse(String value) {
-            return valueOf(value.toUpperCase());
-        }
-    }
 }

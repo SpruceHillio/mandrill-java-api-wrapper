@@ -1,5 +1,5 @@
 /*
-Copyright 2013-2014 SpruceHill.io GmbH
+Copyright 2013-2014 SpruceHill.io GmbH 2014 Stephan Wienczny
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,9 +17,24 @@ limitations under the License.
 package io.sprucehill.mandrill.data.request;
 
 /**
- * @author Michael Duergner <michael@sprucehill.io>
+ * @author Stephan Wienczny <stephan.wienczny@ybm-deutschland.de>
  */
-public interface IWithMergeVarRecipientAwarePayloadBuilder<T> extends IWithMergeVarPayloadBuilder<T> {
+public class TemplateAddPayload extends TemplateAddOrUpdatePayload {
+    @Override
+    public String getPath() {
+        return "/templates/add.json";
+    }
 
-    T withMergeVar(final String recipient, final String name, final String content);
+    public static class Builder extends Init<Builder, TemplateAddPayload> {
+
+        public Builder() {
+            super(new TemplateAddPayload());
+        }
+
+        @Override
+        protected Builder self() {
+            return this;
+        }
+    }
+
 }

@@ -21,5 +21,5 @@ package io.sprucehill.mandrill.data.request;
  */
 public interface IWithTemplateContentPayloadBuilder<T> {
 
-    T withTemplateContent(String name, String content);
+    T withTemplateContent(final String name, final String content);
 }

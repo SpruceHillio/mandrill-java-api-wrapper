@@ -1,5 +1,5 @@
 /*
-Copyright 2013-2014 SpruceHill.io GmbH
+Copyright 2013-2014 SpruceHill.io GmbH 2014 Stephan Wienczny
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -13,22 +13,22 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-
 package io.sprucehill.mandrill.service;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import io.sprucehill.mandrill.data.error.MessageError;
-import io.sprucehill.mandrill.data.error.PreBuildError;
-import io.sprucehill.mandrill.data.error.TemplateMessageError;
-import io.sprucehill.mandrill.data.request.MessagePayload;
-import io.sprucehill.mandrill.data.request.TemplateMessagePayload;
-import io.sprucehill.mandrill.data.response.MessageResponse;
 
 import java.io.IOException;
 import java.util.List;
 
+import io.sprucehill.mandrill.data.error.MessageError;
+import io.sprucehill.mandrill.data.error.PreBuildError;
+import io.sprucehill.mandrill.data.error.TemplateMessageError;
+import io.sprucehill.mandrill.data.request.MessageSendPayload;
+import io.sprucehill.mandrill.data.request.MessageSendTemplatePayload;
+import io.sprucehill.mandrill.data.response.MessageResponse;
+import io.sprucehill.mandrill.data.response.MessageResponseListGenericType;
+
 /**
  * @author Michael Duergner <michael@sprucehill.io>
+ * @author Stephan Wienczny <stephan.wienczny@ybm-deutschland.de>
  */
 public class MessageService extends AbstractService implements IMessageService {
 
@@ -36,59 +36,67 @@ public class MessageService extends AbstractService implements IMessageService {
 
     private String fromName;
 
-    public void setFromEmail(String fromEmail) {
+    public void setFromEmail(final String fromEmail) {
         this.fromEmail = fromEmail;
     }
 
-    public void setFromName(String fromName) {
+    public void setFromName(final String fromName) {
         this.fromName = fromName;
     }
 
     @Override
-    public List<MessageResponse> sendMessage(MessagePayload payload) throws MessageError, IOException {
+    public List<MessageResponse> sendMessage(final MessageSendPayload payload)
+            throws MessageError, IOException {
         try {
-            List<MessageResponse> messageResponses = send(payload,new TypeReference<List<MessageResponse>>() {},MessageError.class);
+            final List<MessageResponse> messageResponses =
+                    send(payload, new MessageResponseListGenericType(), MessageError.class);
             return messageResponses;
-        }
-        catch (MessageError e) {
-            logger.warn("Got MessageError with code {}, name {} and message {} when sending message!",new Object[] {e.getCode().toString(),e.getName(),e.getMessage()});
+        } catch (MessageError e) {
+            LOGGER.warn("Got MessageError with code {}, name {} and message {} when sending message!",
+                    e.getCode().toString(), e.getName(), e.getMessage());
             throw e;
-        }
-        catch (IOException e) {
-            logger.error("Got IOException while sending message!");
+        } catch (IOException e) {
+            LOGGER.error("Got IOException while sending message!");
             throw e;
         }
     }
 
     @Override
-    public List<MessageResponse> sendMessage(MessagePayload.Builder payloadBuilder) throws PreBuildError, MessageError, IOException {
+    public List<MessageResponse> sendMessage(final MessageSendPayload.Builder payloadBuilder)
+            throws PreBuildError, MessageError, IOException {
         integrateDefaultValues(payloadBuilder);
         return sendMessage(payloadBuilder.build());
     }
 
     @Override
-    public List<MessageResponse> sendTemplateMessage(TemplateMessagePayload payload) throws TemplateMessageError, IOException {
+    public List<MessageResponse> sendTemplateMessage(final MessageSendTemplatePayload payload)
+            throws TemplateMessageError, IOException {
         try {
-            List<MessageResponse> messageResponses = send(payload,new TypeReference<List<MessageResponse>>() {},MessageError.class);
+            final List<MessageResponse> messageResponses =
+                    send(payload, new MessageResponseListGenericType(), MessageError.class);
             return messageResponses;
-        }
-        catch (MessageError e) {
-            logger.warn("Got MessageError with code {}, name {} and message {} when sending message!",new Object[] {e.getCode().toString(),e.getName(),e.getMessage()});
+        } catch (MessageError e) {
+            LOGGER.warn("Got MessageError with code {}, name {} and message {} when sending message!",
+                    e.getCode().toString(), e.getName(), e.getMessage());
             throw e;
-        }
-        catch (IOException e) {
-            logger.error("Got IOException while sending message!");
+        } catch (IOException e) {
+            LOGGER.error("Got IOException while sending message!");
             throw e;
         }
     }
 
-    public List<MessageResponse> sendTemplateMessage(TemplateMessagePayload.Builder payloadBuilder) throws PreBuildError, TemplateMessageError, IOException {
+    public List<MessageResponse> sendTemplateMessage(
+            final MessageSendTemplatePayload.Builder payloadBuilder)
+            throws PreBuildError, TemplateMessageError, IOException {
         integrateDefaultValues(payloadBuilder);
         return sendTemplateMessage(payloadBuilder.build());
     }
 
-    <T extends MessagePayload.Init<T, U>, U extends MessagePayload> void integrateDefaultValues(MessagePayload.Init<T, U> payloadBuilder) {
+    <T extends MessageSendPayload.Init<T, U>, U extends MessageSendPayload> void integrateDefaultValues(
+            final MessageSendPayload.Init<T, U> payloadBuilder) {
         super.integrateDefaultValues(payloadBuilder);
+
+        // Allow default from email and name set on
         if (!payloadBuilder.hasFromEmail() && null != fromEmail && !fromEmail.isEmpty()) {
             payloadBuilder.withFromEmail(fromEmail);
         }

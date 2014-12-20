@@ -16,10 +16,31 @@ limitations under the License.
 
 package io.sprucehill.mandrill.data.response;
 
-import io.sprucehill.mandrill.data.AbstractJsonBase;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jersey.repackaged.com.google.common.base.Objects;
 
 /**
- * @author Michael Duergner <michael@sprucehill.io>
+ * @author Stephan Wienczny <stephan.wienczny@ybm-deutschland.de>
  */
-public class Response extends AbstractJsonBase {
+public class AnyListDeleteResponse extends Response {
+
+    @JsonProperty
+    protected String email;
+    @JsonProperty
+    protected boolean deleted;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this).add("email", email).add("deleted", deleted).toString();
+    }
+
 }

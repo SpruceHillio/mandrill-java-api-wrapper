@@ -1,5 +1,5 @@
 /*
-Copyright 2013-2014 SpruceHill.io GmbH
+Copyright 2013-2014 SpruceHill.io GmbH 2014 Stephan Wienczny
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,12 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package io.sprucehill.mandrill.data.request;
+package io.sprucehill.mandrill.data.response;
+
+import java.util.List;
+
+import javax.ws.rs.core.GenericType;
 
 /**
- * @author Michael Duergner <michael@sprucehill.io>
+ * @author Stephan Wienczny <stephan.wienczny@ybm-deutschland.de>
  */
-public interface IWithMergeVarRecipientAwarePayloadBuilder<T> extends IWithMergeVarPayloadBuilder<T> {
-
-    T withMergeVar(final String recipient, final String name, final String content);
+public class AnyListListResponseGenericType extends GenericType<List<AnyListListResponse>> {
 }

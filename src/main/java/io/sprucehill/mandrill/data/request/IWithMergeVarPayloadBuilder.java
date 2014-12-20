@@ -21,5 +21,5 @@ package io.sprucehill.mandrill.data.request;
  */
 public interface IWithMergeVarPayloadBuilder<T> {
 
-    T withMergeVar(String name, String content);
+    T withMergeVar(final String name, final String content);
 }

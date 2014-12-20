@@ -68,35 +68,31 @@ public class Error extends java.lang.Error {
 
         protected U object;
 
-        protected Init(U object) {
+        protected Init(final U object) {
             this.object = object;
         }
-
-        protected abstract T self();
-
 
         protected void postInit() {
         }
 
-        protected void preBuild() {
-        }
-
-        public T withStatus(String status) {
+        public T withStatus(final String status) {
             object.status = status;
             return self();
         }
 
-        public T withCode(Integer code) {
+        protected abstract T self();
+
+        public T withCode(final Integer code) {
             object.code = code;
             return self();
         }
 
-        public T withName(String name) {
+        public T withName(final String name) {
             object.name = name;
             return self();
         }
 
-        public T withMessage(String message) {
+        public T withMessage(final String message) {
             object.message = message;
             return self();
         }
@@ -105,9 +101,12 @@ public class Error extends java.lang.Error {
             preBuild();
             return object;
         }
+
+        protected void preBuild() {
+        }
     }
 
-    public static class Builder extends Init<Builder,Error> {
+    public static class Builder extends Init<Builder, Error> {
 
         public Builder() {
             super(new Error());
