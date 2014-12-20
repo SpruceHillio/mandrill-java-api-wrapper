@@ -52,7 +52,7 @@ public class MessageServiceTest extends AbstractTest {
 
     @Test
     public void sendWithFrom() throws PreBuildError, IOException {
-        final IMessageService messageService = new MessageService();
+        final IMessageService messageService = serviceFactory.createMessageService();
 
         final List<MessageResponse> response = messageService.sendMessage(
                 new MessageSendPayload.Builder().withTo(EMAIL).withFromEmail(FROM_EMAIL)
@@ -66,7 +66,7 @@ public class MessageServiceTest extends AbstractTest {
 
     @Test
     public void sendWithFromUsingDefaults() throws PreBuildError, IOException {
-        final IMessageService messageService = new MessageService();
+        final IMessageService messageService = serviceFactory.createMessageService();
         messageService.setFromEmail(FROM_EMAIL);
         messageService.setFromName(FROM_NAME);
 
