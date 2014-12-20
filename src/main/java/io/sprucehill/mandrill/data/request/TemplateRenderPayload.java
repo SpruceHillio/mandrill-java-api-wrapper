@@ -26,6 +26,7 @@ import io.sprucehill.mandrill.data.AbstractJsonBase;
 
 /**
  * @author Michael Duergner <michael@sprucehill.io>
+ * @author Stephan Wienczny <stephan.wienczny@ybm-deutschland.de>
  */
 public class TemplateRenderPayload extends AbstractPayload {
 
@@ -77,7 +78,9 @@ public class TemplateRenderPayload extends AbstractPayload {
         }
     }
 
-    protected static abstract class Init<T extends Init<T, U>, U extends TemplateRenderPayload> extends AbstractPayload.Init<T, U> implements IWithTemplateNamePayloadBuilder<T>, IWithTemplateContentPayloadBuilder<T>, IWithMergeVarPayloadBuilder<T> {
+    protected static abstract class Init<T extends Init<T, U>, U extends TemplateRenderPayload>
+            extends AbstractPayload.Init<T, U> implements IWithTemplateNamePayloadBuilder<T>,
+            IWithTemplateContentPayloadBuilder<T>, IWithMergeVarPayloadBuilder<T> {
 
         protected Init(U object) {
             super(object);

@@ -1,5 +1,5 @@
 /*
-Copyright 2013-2014 SpruceHill.io GmbH
+Copyright 2013-2014 SpruceHill.io GmbH 2014 Stephan Wienczny
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jersey.repackaged.com.google.common.base.Objects;
 
 /**
- *
+ * @author Stephan Wienczny <stephan.wienczny@ybm-deutschland.de>
  */
 public class AnyListAddResponse extends Response {
 
@@ -42,5 +42,4 @@ public class AnyListAddResponse extends Response {
     public String toString() {
         return Objects.toStringHelper(this).add("email", email).add("added", added).toString();
     }
-
 }

@@ -1,5 +1,5 @@
 /*
-Copyright 2013-2014 SpruceHill.io GmbH
+Copyright 2013-2014 SpruceHill.io GmbH 2014 Stephan Wienczny
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -13,13 +13,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-
 package io.sprucehill.mandrill.service;
 
 import java.io.IOException;
 import java.util.List;
-
-import javax.ws.rs.core.GenericType;
 
 import io.sprucehill.mandrill.data.error.MessageError;
 import io.sprucehill.mandrill.data.error.PreBuildError;
@@ -31,6 +28,7 @@ import io.sprucehill.mandrill.data.response.MessageResponseListGenericType;
 
 /**
  * @author Michael Duergner <michael@sprucehill.io>
+ * @author Stephan Wienczny <stephan.wienczny@ybm-deutschland.de>
  */
 public class MessageService extends AbstractService implements IMessageService {
 
@@ -47,7 +45,8 @@ public class MessageService extends AbstractService implements IMessageService {
     }
 
     @Override
-    public List<MessageResponse> sendMessage(final MessageSendPayload payload) throws MessageError, IOException {
+    public List<MessageResponse> sendMessage(final MessageSendPayload payload)
+            throws MessageError, IOException {
         try {
             final List<MessageResponse> messageResponses =
                     send(payload, new MessageResponseListGenericType(), MessageError.class);
@@ -96,6 +95,8 @@ public class MessageService extends AbstractService implements IMessageService {
     <T extends MessageSendPayload.Init<T, U>, U extends MessageSendPayload> void integrateDefaultValues(
             final MessageSendPayload.Init<T, U> payloadBuilder) {
         super.integrateDefaultValues(payloadBuilder);
+
+        // Allow default from email and name set on
         if (!payloadBuilder.hasFromEmail() && null != fromEmail && !fromEmail.isEmpty()) {
             payloadBuilder.withFromEmail(fromEmail);
         }

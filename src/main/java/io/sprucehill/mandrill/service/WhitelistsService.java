@@ -1,5 +1,5 @@
 /*
-Copyright 2013-2014 SpruceHill.io GmbH
+Copyright 2013-2014 SpruceHill.io GmbH 2014 Stephan Wienczny
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ import java.util.List;
 
 import io.sprucehill.mandrill.data.error.MessageError;
 import io.sprucehill.mandrill.data.error.PreBuildError;
-import io.sprucehill.mandrill.data.request.MessageSendPayload;
 import io.sprucehill.mandrill.data.request.WhitelistsAddPayload;
 import io.sprucehill.mandrill.data.request.WhitelistsDeletePayload;
 import io.sprucehill.mandrill.data.request.WhitelistsListPayload;
@@ -31,7 +30,7 @@ import io.sprucehill.mandrill.data.response.AnyListListResponse;
 import io.sprucehill.mandrill.data.response.AnyListListResponseGenericType;
 
 /**
- * @author Michael Duergner <michael@sprucehill.io>
+ * @author Stephan Wienczny <stephan.wienczny@ybm-deutschland.de>
  */
 public class WhitelistsService extends AbstractService implements IWhitelistsService {
 

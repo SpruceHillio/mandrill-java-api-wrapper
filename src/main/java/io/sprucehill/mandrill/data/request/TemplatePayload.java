@@ -1,5 +1,5 @@
 /*
-Copyright 2013-2014 SpruceHill.io GmbH
+Copyright 2013-2014 SpruceHill.io GmbH 2014 Stephan Wienczny
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+
 package io.sprucehill.mandrill.data.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.sprucehill.mandrill.data.AbstractJsonBase;
 
 /**
- *
+ * @author Stephan Wienczny <stephan.wienczny@ybm-deutschland.de>
  */
 public abstract class TemplatePayload extends AbstractPayload {
 
@@ -41,7 +42,7 @@ public abstract class TemplatePayload extends AbstractPayload {
         protected Variable() {
         }
 
-        protected Variable(String name, String content) {
+        protected Variable(final String name, final String content) {
             this.name = name;
             this.content = content;
         }
@@ -52,7 +53,7 @@ public abstract class TemplatePayload extends AbstractPayload {
         }
 
         @Override
-        public boolean equals(Object o) {
+        public boolean equals(final Object o) {
             if (null == o) {
                 return false;
             }
@@ -70,7 +71,7 @@ public abstract class TemplatePayload extends AbstractPayload {
             super(object);
         }
 
-        public T withName(String name) {
+        public T withName(final String name) {
             object.name = name;
             return self();
         }

@@ -1,5 +1,5 @@
 /*
-Copyright 2013-2014 SpruceHill.io GmbH
+Copyright 2013-2014 SpruceHill.io GmbH 2014 Stephan Wienczny
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,11 +28,11 @@ import io.sprucehill.mandrill.data.response.MessageResponse;
 
 /**
  * @author Michael Duergner <michael@sprucehill.io>
+ * @author Stephan Wienczny <stephan.wienczny@ybm-deutschland.de>
  */
 public interface IMessageService {
 
     /**
-     * @param payload
      * @return
      * @throws MessageError
      * @throws IOException
@@ -41,7 +41,6 @@ public interface IMessageService {
             throws MessageError, IOException;
 
     /**
-     * @param payloadBuilder
      * @return
      * @throws PreBuildError
      * @throws MessageError
@@ -51,7 +50,6 @@ public interface IMessageService {
             throws PreBuildError, MessageError, IOException;
 
     /**
-     * @param payload
      * @return
      * @throws TemplateMessageError
      * @throws IOException
@@ -60,7 +58,6 @@ public interface IMessageService {
             throws TemplateMessageError, IOException;
 
     /**
-     * @param payloadBuilder
      * @return
      * @throws PreBuildError
      * @throws TemplateMessageError
@@ -68,4 +65,14 @@ public interface IMessageService {
      */
     List<MessageResponse> sendTemplateMessage(final MessageSendTemplatePayload.Builder payloadBuilder)
             throws PreBuildError, TemplateMessageError, IOException;
+
+    /**
+     * @param fromEmail email set if missing from builder
+     */
+    void setFromEmail(final String fromEmail);
+
+    /**
+     * @param fromName name set if missing from builder
+     */
+    void setFromName(final String fromName);
 }

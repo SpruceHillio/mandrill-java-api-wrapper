@@ -1,5 +1,5 @@
 /*
-Copyright 2013-2014 SpruceHill.io GmbH
+Copyright 2013-2014 SpruceHill.io GmbH 2014 Stephan Wienczny
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,13 +18,11 @@ package io.sprucehill.mandrill.service;
 
 import java.io.IOException;
 
-import javax.annotation.PostConstruct;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.client.JerseyClient;
-import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,72 +30,60 @@ import io.sprucehill.mandrill.data.request.AbstractPayload;
 
 /**
  * @author Michael Duergner <michael@sprucehill.io>
+ * @author Stephan Wienczny <stephan.wienczny@ybm-deutschland.de>
  */
 public abstract class AbstractService {
 
     protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
-    private static String baseUrl = "https://mandrillapp.com/api/1.0";
+    private String baseUrl = "https://mandrillapp.com/api/1.0";
 
-    private static JerseyClient jerseyClient;
+    private JerseyClient jerseyClient;
 
-    private static String key;
+    private String key;
 
     /**
-     * @param baseUrl
+     * @param baseUrl set by {@link io.sprucehill.mandrill.service.ServiceFactory} or by user
      */
-    public static void setBaseUrl(final String baseUrl) {
-        AbstractService.baseUrl = baseUrl;
+    public void setBaseUrl(final String baseUrl) {
+        this.baseUrl = baseUrl;
     }
 
     /**
-     *
-     * @return
+     * @return base url currently set
      */
-    public static String getBaseUrl() {
+    public String getBaseUrl() {
         return baseUrl;
     }
 
     /**
-     * @param jerseyClient
+     * @param jerseyClient set by {@link io.sprucehill.mandrill.service.ServiceFactory} or by user
      */
-    public static void setClient(final JerseyClient jerseyClient) {
-        AbstractService.jerseyClient = jerseyClient;
+    public void setClient(final JerseyClient jerseyClient) {
+        this.jerseyClient = jerseyClient;
     }
 
     /**
      *
-     * @return
+     * @return {@link org.glassfish.jersey.client.JerseyClient} currently set
      */
-    public static JerseyClient getJerseyClient() {
-        if (jerseyClient == null) {
-            synchronized (AbstractService.class) {
-                if (jerseyClient == null) {
-                    jerseyClient = JerseyClientBuilder.createClient();
-                }
-            }
-        }
+    public JerseyClient getJerseyClient() {
         return jerseyClient;
     }
 
     /**
-     * @param key
+     * @param key set by {@link io.sprucehill.mandrill.service.ServiceFactory} or by user
      */
-    public static void setKey(final String key) {
-        AbstractService.key = key;
+    public void setKey(final String key) {
+        this.key = key;
     }
 
-    public static String getKey() {
+    /**
+     *
+     * @return current key for api
+     */
+    public String getKey() {
         return key;
-    }
-
-    @PostConstruct
-    public final void postConstruct() {
-        onPostConstruct();
-    }
-
-    void onPostConstruct() {
-        getJerseyClient();
     }
 
     <T extends AbstractPayload.Init<T, U>, U extends AbstractPayload> void integrateDefaultValues(AbstractPayload.Init<T, U> payloadBuilder) {
