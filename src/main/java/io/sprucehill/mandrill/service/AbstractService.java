@@ -43,7 +43,7 @@ public abstract class AbstractService {
     private String key;
 
     /**
-     * @param baseUrl set by {@link io.sprucehill.mandrill.service.ServiceFactory} or by user
+     * @param baseUrl set by {@link MandrillServiceFactory} or by user
      */
     public void setBaseUrl(final String baseUrl) {
         this.baseUrl = baseUrl;
@@ -57,7 +57,7 @@ public abstract class AbstractService {
     }
 
     /**
-     * @param jerseyClient set by {@link io.sprucehill.mandrill.service.ServiceFactory} or by user
+     * @param jerseyClient set by {@link MandrillServiceFactory} or by user
      */
     public void setClient(final JerseyClient jerseyClient) {
         this.jerseyClient = jerseyClient;
@@ -72,7 +72,7 @@ public abstract class AbstractService {
     }
 
     /**
-     * @param key set by {@link io.sprucehill.mandrill.service.ServiceFactory} or by user
+     * @param key set by {@link MandrillServiceFactory} or by user
      */
     public void setKey(final String key) {
         this.key = key;

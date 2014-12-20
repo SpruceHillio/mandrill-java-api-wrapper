@@ -18,7 +18,7 @@ package io.sprucehill.mandrill;
 
 import org.junit.Before;
 
-import io.sprucehill.mandrill.service.ServiceFactory;
+import io.sprucehill.mandrill.service.MandrillServiceFactory;
 
 /**
  * Abstract test providing apiKey.
@@ -26,7 +26,7 @@ import io.sprucehill.mandrill.service.ServiceFactory;
  * @author Stephan Wienczny <stephan.wienczny@ybm-deutschland.de>
  */
 public abstract class AbstractTest {
-    protected ServiceFactory serviceFactory = null;
+    protected MandrillServiceFactory mandrillServiceFactory = null;
 
     @Before
     public void init() {
@@ -53,6 +53,6 @@ public abstract class AbstractTest {
             throw new IllegalArgumentException("No apiKey in environment");
         }
 
-        serviceFactory = new ServiceFactory(apiKey);
+        mandrillServiceFactory = new MandrillServiceFactory(apiKey);
     }
 }

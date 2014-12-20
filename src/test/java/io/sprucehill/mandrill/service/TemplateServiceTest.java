@@ -38,7 +38,7 @@ public class TemplateServiceTest extends AbstractTest {
 
     @Test
     public void add() throws PreBuildError, IOException {
-        final ITemplateService templateService = serviceFactory.createTemplateService();
+        final ITemplateService templateService = mandrillServiceFactory.createTemplateService();
 
         try {
             final TemplateResponse response = templateService.add(
@@ -53,7 +53,7 @@ public class TemplateServiceTest extends AbstractTest {
 
     @Test
     public void update() throws PreBuildError, IOException {
-        final ITemplateService templateService = serviceFactory.createTemplateService();
+        final ITemplateService templateService = mandrillServiceFactory.createTemplateService();
 
         try {
             try {
@@ -74,7 +74,7 @@ public class TemplateServiceTest extends AbstractTest {
 
     @Test
     public void render() throws PreBuildError, IOException {
-        final ITemplateService templateService = serviceFactory.createTemplateService();
+        final ITemplateService templateService = mandrillServiceFactory.createTemplateService();
 
         try {
             try {
@@ -95,7 +95,7 @@ public class TemplateServiceTest extends AbstractTest {
     }
 
     public void delete() throws PreBuildError, IOException {
-        final ITemplateService templateService = serviceFactory.createTemplateService();
+        final ITemplateService templateService = mandrillServiceFactory.createTemplateService();
 
         try {
             final TemplateResponse response = templateService.delete(

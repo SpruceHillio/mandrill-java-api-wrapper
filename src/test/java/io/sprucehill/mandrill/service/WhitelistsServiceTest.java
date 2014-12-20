@@ -39,7 +39,7 @@ public class WhitelistsServiceTest extends AbstractTest {
 
     @Test
     public void add() throws PreBuildError, IOException {
-        final IWhitelistsService whitelistsService = serviceFactory.createWhitelistsService();
+        final IWhitelistsService whitelistsService = mandrillServiceFactory.createWhitelistsService();
 
         final AnyListAddResponse response = whitelistsService.add(
                 new WhitelistsAddPayload.Builder().withEmail(EMAIL));
@@ -50,7 +50,7 @@ public class WhitelistsServiceTest extends AbstractTest {
 
     @Test
     public void delete() throws PreBuildError, IOException {
-        final IWhitelistsService whitelistsService = serviceFactory.createWhitelistsService();
+        final IWhitelistsService whitelistsService = mandrillServiceFactory.createWhitelistsService();
 
         final AnyListDeleteResponse response = whitelistsService.delete(
                 new WhitelistsDeletePayload.Builder().withEmail(EMAIL));
@@ -61,7 +61,7 @@ public class WhitelistsServiceTest extends AbstractTest {
 
     @Test
     public void list() throws PreBuildError, IOException {
-        final IWhitelistsService whitelistsService = serviceFactory.createWhitelistsService();
+        final IWhitelistsService whitelistsService = mandrillServiceFactory.createWhitelistsService();
 
         whitelistsService.add(new WhitelistsAddPayload.Builder().withEmail(EMAIL));
 

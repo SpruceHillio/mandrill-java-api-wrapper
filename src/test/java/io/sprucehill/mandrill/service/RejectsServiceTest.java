@@ -39,7 +39,7 @@ public class RejectsServiceTest extends AbstractTest {
 
     @Test
     public void add() throws PreBuildError, IOException {
-        final IRejectsService rejectsService = serviceFactory.createRejectsService();
+        final IRejectsService rejectsService = mandrillServiceFactory.createRejectsService();
 
         final AnyListAddResponse response = rejectsService.add(
                 new RejectsAddPayload.Builder().withEmail(EMAIL));
@@ -50,7 +50,7 @@ public class RejectsServiceTest extends AbstractTest {
 
     @Test
     public void delete() throws PreBuildError, IOException {
-        final IRejectsService rejectsService = serviceFactory.createRejectsService();
+        final IRejectsService rejectsService = mandrillServiceFactory.createRejectsService();
 
         final AnyListDeleteResponse response = rejectsService.delete(
                 new RejectsDeletePayload.Builder().withEmail(EMAIL));
@@ -61,7 +61,7 @@ public class RejectsServiceTest extends AbstractTest {
 
     @Test
     public void list() throws PreBuildError, IOException {
-        final IRejectsService rejectsService = serviceFactory.createRejectsService();
+        final IRejectsService rejectsService = mandrillServiceFactory.createRejectsService();
 
         rejectsService.add(new RejectsAddPayload.Builder().withEmail(EMAIL));
 

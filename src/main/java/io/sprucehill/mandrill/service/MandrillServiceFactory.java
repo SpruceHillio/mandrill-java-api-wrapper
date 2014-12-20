@@ -26,7 +26,7 @@ import jersey.repackaged.com.google.common.base.Objects;
 /**
  * @author Stephan Wienczny <stephan.wienczny@ybm-deutschland.de>
  */
-public class ServiceFactory {
+public class MandrillServiceFactory {
     protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     private String baseUrl = "https://mandrillapp.com/api/1.0";
@@ -35,19 +35,20 @@ public class ServiceFactory {
 
     private String key;
 
-    public ServiceFactory() {
+    public MandrillServiceFactory() {
     }
 
-    public ServiceFactory(final String key) {
+    public MandrillServiceFactory(final String key) {
         this.key = key;
     }
 
-    public ServiceFactory(final String key, final String baseUrl) {
+    public MandrillServiceFactory(final String key, final String baseUrl) {
         this(key);
         this.baseUrl = baseUrl;
     }
 
-    public ServiceFactory(final String key, final String baseUrl, final JerseyClient jerseyClient) {
+    public MandrillServiceFactory(final String key, final String baseUrl,
+                                  final JerseyClient jerseyClient) {
         this(key, baseUrl);
         this.jerseyClient = jerseyClient;
     }
@@ -62,7 +63,7 @@ public class ServiceFactory {
 
     public JerseyClient getJerseyClient() {
         if (jerseyClient == null) {
-            synchronized (ServiceFactory.class) {
+            synchronized (MandrillServiceFactory.class) {
                 if (jerseyClient == null) {
                     jerseyClient = JerseyClientBuilder.createClient();
                 }

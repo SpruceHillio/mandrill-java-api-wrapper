@@ -39,7 +39,7 @@ public class MessageServiceTest extends AbstractTest {
 
     @Test
     public void send() throws PreBuildError, IOException {
-        final IMessageService messageService = serviceFactory.createMessageService();
+        final IMessageService messageService = mandrillServiceFactory.createMessageService();
 
         final List<MessageResponse> response = messageService.sendMessage(
                 new MessageSendPayload.Builder().withTo(EMAIL).withSubject("Mandrill Test")
@@ -52,7 +52,7 @@ public class MessageServiceTest extends AbstractTest {
 
     @Test
     public void sendWithFrom() throws PreBuildError, IOException {
-        final IMessageService messageService = serviceFactory.createMessageService();
+        final IMessageService messageService = mandrillServiceFactory.createMessageService();
 
         final List<MessageResponse> response = messageService.sendMessage(
                 new MessageSendPayload.Builder().withTo(EMAIL).withFromEmail(FROM_EMAIL)
@@ -66,7 +66,7 @@ public class MessageServiceTest extends AbstractTest {
 
     @Test
     public void sendWithFromUsingDefaults() throws PreBuildError, IOException {
-        final IMessageService messageService = serviceFactory.createMessageService();
+        final IMessageService messageService = mandrillServiceFactory.createMessageService();
         messageService.setFromEmail(FROM_EMAIL);
         messageService.setFromName(FROM_NAME);
 
@@ -82,7 +82,7 @@ public class MessageServiceTest extends AbstractTest {
 
     @Test
     public void sendTemplate() throws PreBuildError, IOException {
-        final IMessageService messageService = serviceFactory.createMessageService();
+        final IMessageService messageService = mandrillServiceFactory.createMessageService();
 
         final List<MessageResponse> response = messageService.sendTemplateMessage(
                 new MessageSendTemplatePayload.Builder().withTo(EMAIL)
